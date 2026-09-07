@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="pl">
+    <meta name="description" content="Plan lekcji utworzony za pomocą programu Plan lekcji Optivum firmy VULCAN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">VULCAN OPTIVUM PLAN</title>
+    <style>
+        :root {
+            --bg-header: #80c2ab;
+            --border-color: #bddfd0;
+            --bg-table: #bddfd0;
+            --bg-cell: #ffffff;
+            --btn-hover: #6ea995;
+            --text-color: #000000;
+            --link-color: #000080;
+            --link-visited: #5377b6;
+            --link-hover: #0000ff;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-color);
+            font: 11px verdana, sans-serif;
+            overflow: auto;
+            margin: 0;
+        }
+
+        .tabtytul { 
+            background-color: var(--bg-header);
+            border-bottom: 2px solid #808080;
+            width: 100%;
+        }
+
+        .tytul { 
+            background-color: var(--bg-header);
+            color: #ffffff;
+            height: 50px;
+            font: bold 20px verdana, sans-serif;
+            border-bottom: 2px solid #c0c0c0;
+            vertical-align: middle;
+        }
+
+        .logo { 
+            text-align: right;
+            border-bottom: 2px solid #c0c0c0;
+            padding-right: 20px;
+            background-color: var(--bg-header);
+        }
+
+        .tytulnapis { 
+            padding-left: 20px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .tabtytul-szczegoly { 
+            background-color: var(--bg-header);
+            border-bottom: 2px solid #808080;
+            width: 100%;
+        }
+
+        .tytul-szczegoly { 
+            background-color: var(--bg-header);
+            color: #ffffff;
+            height: 50px;
+            font: bold 24px verdana, sans-serif;
+            border-bottom: 2px solid #c0c0c0;
+            text-align: center;
+        }
+
+        .tytulnapis-szczegoly { 
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        table.tabela-szczegoly { 
+            border: 2px outset var(--border-color);
+            background-color: var(--bg-table);
+            border-collapse: collapse;
+            border-color: #c0c0c0;
+        }
+
+        table.tabela-szczegoly th {
+            background-color: var(--bg-table);
+            color: #000099;
+            font-size: 13px;
+            border: 1px solid #808080;
+            padding: 4px;
+        }
+
+        td.g { 
+            background-color: var(--border-color);
+            color: #000099;
+            font-weight: bold;
+            vertical-align: middle;
+            text-align: center;
+            white-space: nowrap;
+            border: 1px solid #808080;
+            border-right: 2px solid #555555;
+            padding: 6px 8px;
+        }
+
+        td.nr { 
+            background-color: var(--bg-table);
+            color: #000099;
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #808080;
+            padding: 6px 4px;
+        }
+
+        a.n, a.s, a.k { 
+            color: #000099;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .p { 
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        .op { 
+            font: 10px verdana, sans-serif;
+        }
+
+        .tabela { 
+            border: 2px outset var(--border-color);
+            background-color: var(--bg-table);
+            border-collapse: collapse;
+        }
+
+        td {
+            font-size: 11px;
+        }
+
+        a, a:link { 
+            color: #000099;
+            text-decoration: none; 
+            cursor: pointer; 
+        }
+        a:visited { color: var(--link-visited); text-decoration: none; }
+        a:hover { color: var(--link-hover); text-decoration: underline; cursor: pointer; }
+
+        .ng {
+            padding: 4px;
+            background-color: var(--bg-header);
+            color: var(--text-color);
+            border: 2px outset var(--bg-header);
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        input[type="text"], input[type="password"], input[type="number"], select {
+            width: 100%;
+            padding: 4px;
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            font-family: verdana, sans-serif;
+            font-size: 11px;
+            background: #fff;
+        }
+        table.editor-table select, table.editor-table input {
+            margin: 2px 0;
+            font-size: 10px;
+            padding: 2px;
+        }
+
+        button {
+            background-color: var(--bg-header);
+            border: 1px solid var(--border-color);
+            padding: 4px 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: verdana, sans-serif;
+            font-size: 11px;
+            color: #000;
+        }
+        button:hover { background-color: var(--btn-hover); }
+        button:disabled { background-color: #ddd; cursor: not-allowed; }
+
+        .error { color: red; font-weight: bold; margin-top: 5px; }
+        .success { color: green; font-weight: bold; margin-top: 5px; }
+        .box-center {
+            width: 450px;
+            margin: 0 auto;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999;
+        }
+        .modal-box {
+            background: var(--bg-cell, #fff);
+            color: var(--text-color, #000);
+            padding: 15px;
+            border: 2px outset var(--border-color);
+            width: 380px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @media print {
+            .tabtytul, #main-header-table, button, .print-hide { 
+                display: none !important; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="tabtytul" id="main-header-table">
+    <tr>
+        <td class="tytul">
+            <img src="images/pusty.gif" height="50" width="1"><span class="tytulnapis" id="header-title-text">VULCAN OPTIVUM PLAN</span>
+        </td>
+        <td class="logo" id="main-logo-td">
+            <button onclick="zmienWidok('public')">Strona Główna</button>
+            <button onclick="sprawdzLogowanieAdmina()">Panel Admina</button>
+        </td>
+    </tr>
+</table>
+
+<div id="app"></div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, updateDoc, getDocs, doc, deleteDoc, query, where, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyD4YN_gKp4hE7rLGbzhyaba69jtePccWEI",
+        authDomain: "plan-lekcji-2e438.firebaseapp.com",
+        projectId: "plan-lekcji-2e438",
+        storageBucket: "plan-lekcji-2e438.firebasestorage.app",
+        messagingSenderId: "584754184973",
+        appId: "1:584754184973:web:741390bc1b38b89c516644"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    let czyZalogowany = false;
+
+    window.wyloguj = async function() {
+        czyZalogowany = false;
+        await zastosujKonfiguracje();
+        renderPublicView();
+    };
+
+    let edytowanyPlanId = null;
+
+    let globalConfig = {
+        naglowek: "VULCAN OPTIVUM PLAN",
+        theme: "morski",
+        formatNauczyciela: "pelny",
+        formatSali: "pelny",
+        pokazPrzyciskAdmina: true
+    };
+
+    const motywy = {
+        morski: { header: "#80c2ab", border: "#bddfd0", table: "#bddfd0", hover: "#6ea995", text: "#000", link: "#000080", visited: "#5377b6", linkHover: "#0000ff", cell: "#ffffff" },
+        niebieski: { header: "#2b5876", border: "#608bb5", table: "#d2e4f7", hover: "#1f4056", text: "#000", link: "#000080", visited: "#457b9d", linkHover: "#0056b3", cell: "#ffffff" },
+        ciemny: { header: "#212529", border: "#495057", table: "#343a40", hover: "#1a1e21", text: "#f8f9fa", link: "#000080", visited: "#8cb4ff", linkHover: "#79c0ff", cell: "#2b3035" },
+        czerwony: { header: "#a71d2a", border: "#d9838a", table: "#f8d7da", hover: "#80121d", text: "#000", link: "#000080", visited: "#b54954", linkHover: "#a71d2a", cell: "#ffffff" },
+        fioletowy: { header: "#563d7c", border: "#9b7ed9", table: "#e8def8", hover: "#422f5f", text: "#000", link: "#000080", visited: "#795ab3", linkHover: "#563d7c", cell: "#ffffff" },
+        zielony: { header: "#1e7e34", border: "#6cb2eb", table: "#d4edda", hover: "#155724", text: "#000", link: "#000080", visited: "#28a745", linkHover: "#1e7e34", cell: "#ffffff" },
+        sloneczny: { header: "#d39e00", border: "#ffeeba", table: "#fff3cd", hover: "#aa7e00", text: "#000", link: "#000080", visited: "#b08500", linkHover: "#d39e00", cell: "#ffffff" },
+        szary: { header: "#495057", border: "#adb5bd", table: "#e9ecef", hover: "#343a40", text: "#000", link: "#000080", linkHover: "#495057", visited: "#6c757d", cell: "#ffffff" },
+        rozowy: { header: "#c9184a", border: "#ffb3c1", table: "#ffccd5", hover: "#a2133b", text: "#000", link: "#000080", visited: "#c9184a", linkHover: "#a2133b", cell: "#ffffff" },
+        turkusowy: { header: "#0077b6", border: "#90e0ef", table: "#caf0f8", hover: "#005f92", text: "#000", link: "#000080", visited: "#0077b6", linkHover: "#005f92", cell: "#ffffff" },
+        pomaranczowy: { header: "#e67e22", border: "#f39c12", table: "#fdebd0", hover: "#d35400", text: "#000", link: "#000080", visited: "#8e44ad", linkHover: "#c0392b", cell: "#ffffff" },
+        mietowy: { header: "#1abc9c", border: "#a3e4d7", table: "#e8f8f5", hover: "#16a085", text: "#000", link: "#000080", visited: "#2980b9", linkHover: "#2c3e50", cell: "#ffffff" },
+        kawowy: { header: "#5c4033", border: "#8b5a2b", table: "#f5deb3", hover: "#3e2723", text: "#000", link: "#000080", visited: "#8b4513", linkHover: "#d2691e", cell: "#ffffff" },
+        malinowy: { header: "#d81b60", border: "#f48fb1", table: "#fce4ec", hover: "#ad1457", text: "#000", link: "#000080", visited: "#6a1b9a", linkHover: "#880e4f", cell: "#ffffff" },
+        zloty: { header: "#b8860b", border: "#f0e68c", table: "#fff8dc", hover: "#daa520", text: "#000", link: "#000080", visited: "#8b4513", linkHover: "#d2691e", cell: "#ffffff" }
+    };
+
+    async function pobierzKonfiguracje() {
+        try {
+            const docSnap = await getDoc(doc(db, "ustawienia", "konfiguracja"));
+            if (docSnap.exists()) {
+                globalConfig = { ...globalConfig, ...docSnap.data() };
+                return globalConfig;
+            }
+        } catch (e) {
+            console.error("Błąd konfiguracji: ", e);
+        }
+        return globalConfig;
+    }
+
+    function formatNauczyciel(nazwa) {
+        if (!nazwa) return '';
+        const fmt = globalConfig.formatNauczyciela || 'pelny';
+        const parts = nazwa.trim().split(' ');
+        if (fmt === 'inicjal' && parts.length >= 2) {
+            return parts[0].charAt(0) + '. ' + parts.slice(1).join(' ');
+        } else if (fmt === 'nazwisko' && parts.length >= 1) {
+            return parts[parts.length - 1];
+        }
+        return nazwa;
+    }
+
+    function formatSala(nazwa) {
+        if (!nazwa) return '';
+        const fmt = globalConfig.formatSali || 'pelny';
+        if (fmt === 'skrot') {
+            return nazwa.replace(/^sala\s+/i, '');
+        }
+        return nazwa;
+    }
+
+    window.zmienMotyw = async function(nazwaMotywu) {
+        const m = motywy[nazwaMotywu] || motywy.morski;
+        document.documentElement.style.setProperty('--bg-header', m.header);
+        document.documentElement.style.setProperty('--border-color', m.border);
+        document.documentElement.style.setProperty('--bg-table', m.table);
+        document.documentElement.style.setProperty('--bg-cell', m.cell || '#ffffff');
+        document.documentElement.style.setProperty('--btn-hover', m.hover);
+        document.documentElement.style.setProperty('--text-color', m.text);
+        document.documentElement.style.setProperty('--link-color', m.link);
+        document.documentElement.style.setProperty('--link-visited', m.visited);
+        document.documentElement.style.setProperty('--link-hover', m.linkHover);
+
+        document.querySelectorAll('.tabtytul, .tytul, .logo, .ng, .tabtytul-szczegoly, .tytul-szczegoly').forEach(el => {
+            el.style.backgroundColor = m.header;
+            if(el.classList.contains('ng')) el.style.borderColor = m.header;
+        });
+        document.querySelectorAll('.tabela, .tabela-szczegoly').forEach(el => {
+            el.style.backgroundColor = m.table;
+            el.style.borderColor = m.border;
+        });
+
+        try {
+            const configRef = doc(db, "ustawienia", "konfiguracja");
+            await setDoc(configRef, { theme: nazwaMotywu }, { merge: true });
+        } catch(e) {
+            console.error("Nie udało się zapisać motywu w bazie:", e);
+        }
+    }
+
+    async function zastosujKonfiguracje() {
+        const config = await pobierzKonfiguracje();
+        const naglowekText = config.naglowek || "VULCAN OPTIVUM PLAN";
+        const titleEl = document.getElementById('header-title-text');
+        const pageTitleEl = document.getElementById('page-title');
+        if (titleEl) titleEl.innerText = naglowekText;
+        if (pageTitleEl) pageTitleEl.innerText = naglowekText;
+
+        const logoTd = document.getElementById('main-logo-td');
+        if (logoTd) {
+            const pokazPrzycisk = config.pokazPrzyciskAdmina !== false;
+            logoTd.innerHTML = `
+                <button onclick="zmienWidok('public')">Strona Główna</button>
+                ${pokazPrzycisk ? `<button onclick="sprawdzLogowanieAdmina()">Panel Admina</button>` : ''}
+            `;
+        }
+
+        if (config.theme) {
+            const m = motywy[config.theme] || motywy.morski;
+            document.documentElement.style.setProperty('--bg-header', m.header);
+            document.documentElement.style.setProperty('--border-color', m.border);
+            document.documentElement.style.setProperty('--bg-table', m.table);
+            document.documentElement.style.setProperty('--bg-cell', m.cell || '#ffffff');
+            document.documentElement.style.setProperty('--btn-hover', m.hover);
+            document.documentElement.style.setProperty('--text-color', m.text);
+            document.documentElement.style.setProperty('--link-color', m.link);
+            document.documentElement.style.setProperty('--link-visited', m.visited);
+            document.documentElement.style.setProperty('--link-hover', m.linkHover);
+
+            document.querySelectorAll('.tabtytul, .tytul, .logo, .ng, .tabtytul-szczegoly, .tytul-szczegoly').forEach(el => {
+                el.style.backgroundColor = m.header;
+                if(el.classList.contains('ng')) el.style.borderColor = m.header;
+            });
+            document.querySelectorAll('.tabela, .tabela-szczegoly').forEach(el => {
+                el.style.backgroundColor = m.table;
+                el.style.borderColor = m.border;
+            });
+        }
+        return config;
+    }
+
+    window.zmienWidok = async function(typ) {
+        await zastosujKonfiguracje();
+        if (typ === 'public') renderPublicView();
+    }
+
+    window.sprawdzLogowanieAdmina = async function() {
+        await zastosujKonfiguracje();
+        czyZalogowany ? renderAdminPanel() : renderLoginView();
+    }
+
+    async function pobierzKolekcje(nazwa) {
+        try {
+            const querySnapshot = await getDocs(collection(db, nazwa));
+            let lista = [];
+            querySnapshot.forEach((docSnap) => { lista.push({ id: docSnap.id, ...docSnap.data() }); });
+            return lista;
+        } catch (e) {
+            console.error(`Błąd pobierania ${nazwa}: `, e);
+            return [];
+        }
+    }
+
+    function chunkArray(arr, size) {
+        let results = [];
+        for (let i = 0; i < arr.length; i += size) {
+            results.push(arr.slice(i, i + size));
+        }
+        return results;
+    }
+
+    function renderujKomorkeLekcji(lekcjeLubLekcja, kontekst = 'oddzial', extraInfo = '') {
+        if (!lekcjeLubLekcja) return "&nbsp;";
+        const arr = Array.isArray(lekcjeLubLekcja) ? lekcjeLubLekcja : [lekcjeLubLekcja];
+        if (arr.length === 0) return "&nbsp;";
+
+        return arr.map(l => {
+            if (!l || (!l.przedmiot && !l.nauczyciel && !l.sala)) return null;
+            const grupaTxt = l.grupa ? `[${l.grupa}] ` : '';
+            
+            const nFmt = formatNauczyciel(l.nauczyciel);
+            const sFmt = formatSala(l.sala);
+
+            const nauczycielLink = l.nauczyciel ? `<a class="n" onclick="pokazPlanNauczyciela('${l.nauczyciel}')">${nFmt}</a>` : '';
+            const salaLink = l.sala ? `<a class="s" onclick="pokazPlanSal('${l.sala}')">${sFmt}</a>` : '';
+            
+            let opis = '';
+            if (kontekst === 'oddzial') {
+                opis = `<span class="op">${nauczycielLink} | ${salaLink}</span>`;
+            } else if (kontekst === 'nauczyciel') {
+                opis = `<span class="op">[${extraInfo}] s. ${salaLink}</span>`;
+            } else if (kontekst === 'sala') {
+                opis = `<span class="op">[${extraInfo}] ${nauczycielLink}</span>`;
+            }
+
+            return `<div style="${arr.length > 1 ? 'margin-bottom:2px;' : ''}">${grupaTxt}<span class="p">${l.przedmiot || ''}</span><br>${opis}</div>`;
+        }).filter(Boolean).join('<div style="border-top: 1px dotted #999; margin: 2px 0;"></div>') || "&nbsp;";
+    }
+
+    async function renderPublicView() {
+        try {
+            await zastosujKonfiguracje();
+            const appDiv = document.getElementById('app');
+            if (!appDiv) return;
+            appDiv.innerHTML = "<p style='text-align:center; margin-top:20px;'>Pobieranie danych z bazy Firebase...</p>";
+            
+            const oddzialy = await pobierzKolekcje("oddzialy");
+            const nauczyciele = await pobierzKolekcje("nauczyciele");
+            const sale = await pobierzKolekcje("sale");
+
+            let oddzialyChunks = chunkArray(oddzialy, 8);
+            let oddzialyHTML = "";
+            if (oddzialyChunks.length === 0) {
+                oddzialyHTML = "<tr><td style='text-align:left;'>Brak oddziałów w bazie</td></tr>";
+            } else {
+                oddzialyChunks.forEach(row => {
+                    oddzialyHTML += "<tr>" + row.map(o => `<td style="text-align:left; width: ${100/8}%; padding-left: 4px;"><a class="k" onclick="pokazPlanOddzialu('${o.id}')">${o.nazwa}</a></td>`).join('') + "</tr>";
+                });
+            }
+
+            let nauczycieleChunks = chunkArray(nauczyciele, 3);
+            let nauczycieleHTML = "";
+            if (nauczycieleChunks.length === 0) {
+                nauczycieleHTML = "<tr><td style='text-align:left;'>Brak nauczycieli w bazie</td></tr>";
+            } else {
+                nauczycieleChunks.forEach(row => {
+                    nauczycieleHTML += "<tr>" + row.map(n => `<td style="text-align:left; width: ${100/3}%; padding-left: 4px;"><a class="n" onclick="pokazPlanNauczyciela('${n.nazwa}')">${formatNauczyciel(n.nazwa)}</a></td>`).join('') + "</tr>";
+                });
+            }
+
+            let saleChunks = chunkArray(sale, 3);
+            let saleHTML = "";
+            if (saleChunks.length === 0) {
+                saleHTML = "<tr><td style='text-align:left;'>Brak sal w bazie</td></tr>";
+            } else {
+                saleChunks.forEach(row => {
+                    saleHTML += "<tr>" + row.map(s => `<td style="text-align:left; width: ${100/3}%; padding-left: 4px;"><a class="s" onclick="pokazPlanSal('${s.nazwa}')">${formatSala(s.nazwa)}</a></td>`).join('') + "</tr>";
+                });
+            }
+
+            appDiv.innerHTML = `
+                <div style="display: flex; justify-content: flex-start; margin-top: 15px; margin-left: 20px;">
+                    <table border="0" cellpadding="2" cellspacing="0" style="width: 750px; max-width: 100%;">
+                        <tr>
+                            <td valign="top" style="width: 130px;"><div class="ng" style="text-align: center;">Oddziały</div></td>
+                            <td valign="top">
+                                <table border="0" cellpadding="4" cellspacing="0" class="tabela" style="width: 100%; table-layout: fixed;">
+                                    ${oddzialyHTML}
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top"><div class="ng" style="text-align: center;">Nauczyciele</div></td>
+                            <td valign="top">
+                                <table border="0" cellpadding="4" cellspacing="0" class="tabela" style="width: 100%; table-layout: fixed;">
+                                    ${nauczycieleHTML}
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top"><div class="ng" style="text-align: center;">Sale</div></td>
+                            <td valign="top">
+                                <table border="0" cellpadding="4" cellspacing="0" class="tabela" style="width: 100%; table-layout: fixed;">
+                                    ${saleHTML}
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            `;
+            await zastosujKonfiguracje();
+        } catch (err) {
+            console.error("Błąd renderowania widoku publicznego:", err);
+            const appDiv = document.getElementById('app');
+            if (appDiv) {
+                appDiv.innerHTML = `<div style="text-align:center; color:red; margin-top:20px;">Wystąpił błąd podczas ładowania planu.<br><button onclick="renderPublicView()" style="margin-top:10px;">Odśwież widok</button></div>`;
+            }
+        }
+    }
+
+    window.pokazPlanOddzialu = async function(oddzialId) {
+        const oddzialy = await pobierzKolekcje("oddzialy");
+        const oddzial = oddzialy.find(o => o.id === oddzialId);
+        if (!oddzial) return;
+
+        const plany = await pobierzKolekcje("plany_lekcji");
+        const plan = plany.find(p => p.oddzialId === oddzialId);
+
+        const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
+        let wiersze = "";
+        
+        if (plan && plan.godziny) {
+            const numeryGodzin = Object.keys(plan.godziny).sort((a,b) => Number(a)-Number(b));
+            numeryGodzin.forEach(i => {
+                const h = plan.godziny[i];
+                wiersze += `<tr>
+                    <td class="nr">${i}</td>
+                    <td class="g">${h.od} - ${h.do}</td>`;
+                dni.forEach(dzien => {
+                    let cellText = "&nbsp;";
+                    if (plan.siatka && plan.siatka[dzien] && plan.siatka[dzien][i]) {
+                        cellText = renderujKomorkeLekcji(plan.siatka[dzien][i], 'oddzial');
+                    }
+                    wiersze += `<td class="l">${cellText}</td>`;
+                });
+                wiersze += `</tr>`;
+            });
+        } else {
+            wiersze = `<tr><td colspan="7" class="l">Brak zdefiniowanych godzin lub planu dla tego oddziału</td></tr>`;
+        }
+
+        document.getElementById('app').innerHTML = `
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tabtytul-szczegoly">
+                <tr>
+                    <td class="tytul-szczegoly">
+                        <img src="images/pusty.gif" height="50" width="1">
+                        <span class="tytulnapis-szczegoly">${oddzial.nazwa}</span>
+                    </td>
+                </tr>
+            </table>
+            <div align="center">
+                <table border="0" cellpadding="10" cellspacing="0">
+                    <tr><td>
+                        <table border="1" cellspacing="0" cellpadding="4" class="tabela-szczegoly">
+                            <tr>
+                                <th>Nr</th>
+                                <th>Godz</th>
+                                ${dni.map(d => `<th>${d}</th>`).join('')}
+                            </tr>
+                            ${wiersze}
+                        </table>
+                    </td></tr>
+                    <tr>
+                        <td align="left" class="print-hide">
+                            <button onclick="window.location.href='index.html'">&laquo; Powrót do spisu</button>
+                            <a href="javascript:window.print()" style="margin-left: 15px;">Drukuj plan</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        `;
+        await zastosujKonfiguracje();
+    }
+
+    window.pokazPlanNauczyciela = async function(nazwaNauczyciela) {
+        const plany = await pobierzKolekcje("plany_lekcji");
+        const oddzialy = await pobierzKolekcje("oddzialy");
+        
+        const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
+        let siatkaNauczyciela = {};
+        let godzinyZbiorczo = {};
+
+        plany.forEach(p => {
+            const oddz = oddzialy.find(o => o.id === p.oddzialId);
+            const oddzialNazwa = oddz ? oddz.nazwa : "Nieznana klasa";
+            const oddzialId = p.oddzialId;
+            
+            if (p.godziny) {
+                Object.keys(p.godziny).forEach(nr => { godzinyZbiorczo[nr] = p.godziny[nr]; });
+            }
+
+            dni.forEach(dzien => {
+                if (p.siatka && p.siatka[dzien]) {
+                    Object.keys(p.siatka[dzien]).forEach(i => {
+                        const lekcje = p.siatka[dzien][i];
+                        const arr = Array.isArray(lekcje) ? lekcje : [lekcje];
+                        arr.forEach(lekcja => {
+                            if (lekcja && lekcja.nauczyciel === nazwaNauczyciela) {
+                                if (!siatkaNauczyciela[dzien]) siatkaNauczyciela[dzien] = {};
+                                const klasaLink = `<a class="k" onclick="pokazPlanOddzialu('${oddzialId}')">${oddzialNazwa}</a>`;
+                                if (!siatkaNauczyciela[dzien][i]) siatkaNauczyciela[dzien][i] = [];
+                                siatkaNauczyciela[dzien][i].push({
+                                    grupa: lekcja.grupa,
+                                    przedmiot: lekcja.przedmiot,
+                                    sala: lekcja.sala,
+                                    kontekstInfo: klasaLink
+                                });
+                            }
+                        });
+                    });
+                }
+            });
+        });
+
+        let wiersze = "";
+        const numeryGodzin = Object.keys(godzinyZbiorczo).sort((a,b) => Number(a)-Number(b));
+        
+        if (numeryGodzin.length > 0) {
+            numeryGodzin.forEach(i => {
+                const h = godzinyZbiorczo[i];
+                wiersze += `<tr>
+                    <td class="nr">${i}</td>
+                    <td class="g">${h.od} - ${h.do}</td>`;
+                dni.forEach(dzien => {
+                    let cellText = "&nbsp;";
+                    if (siatkaNauczyciela[dzien] && siatkaNauczyciela[dzien][i]) {
+                        cellText = renderujKomorkeLekcji(siatkaNauczyciela[dzien][i].map(l => ({
+                            grupa: l.grupa,
+                            przedmiot: l.przedmiot,
+                            nauczyciel: null,
+                            sala: l.sala
+                        })), 'nauczyciel', siatkaNauczyciela[dzien][i].map(l => l.kontekstInfo).join(', '));
+                    }
+                    wiersze += `<td class="l">${cellText}</td>`;
+                });
+                wiersze += `</tr>`;
+            });
+        } else {
+            wiersze = `<tr><td colspan="7" class="l">Brak wpisów dla nauczyciela</td></tr>`;
+        }
+
+        document.getElementById('app').innerHTML = `
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tabtytul-szczegoly">
+                <tr>
+                    <td class="tytul-szczegoly">
+                        <img src="images/pusty.gif" height="50" width="1">
+                        <span class="tytulnapis-szczegoly">${formatNauczyciel(nazwaNauczyciela)}</span>
+                    </td>
+                </tr>
+            </table>
+            <div align="center">
+                <table border="0" cellpadding="10" cellspacing="0">
+                    <tr><td>
+                        <table border="1" cellspacing="0" cellpadding="4" class="tabela-szczegoly">
+                            <tr>
+                                <th>Nr</th>
+                                <th>Godz</th>
+                                ${dni.map(d => `<th>${d}</th>`).join('')}
+                            </tr>
+                            ${wiersze}
+                        </table>
+                    </td></tr>
+                    <tr>
+                        <td align="left" class="print-hide">
+                            <button onclick="window.location.href='index.html'">&laquo; Powrót do spisu</button>
+                            <a href="javascript:window.print()" style="margin-left: 15px;">Drukuj plan</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        `;
+        await zastosujKonfiguracje();
+    }
+
+    window.pokazPlanSal = async function(nazwaSali) {
+        const plany = await pobierzKolekcje("plany_lekcji");
+        const oddzialy = await pobierzKolekcje("oddzialy");
+        
+        const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
+        let siatkaSali = {};
+        let godzinyZbiorczo = {};
+
+        plany.forEach(p => {
+            const oddz = oddzialy.find(o => o.id === p.oddzialId);
+            const oddzialNazwa = oddz ? oddz.nazwa : "Nieznana klasa";
+            const oddzialId = p.oddzialId;
+            
+            if (p.godziny) {
+                Object.keys(p.godziny).forEach(nr => { godzinyZbiorczo[nr] = p.godziny[nr]; });
+            }
+            
+            dni.forEach(dzien => {
+                if (p.siatka && p.siatka[dzien]) {
+                    Object.keys(p.siatka[dzien]).forEach(i => {
+                        const lekcje = p.siatka[dzien][i];
+                        const arr = Array.isArray(lekcje) ? lekcje : [lekcje];
+                        arr.forEach(lekcja => {
+                            if (lekcja && lekcja.sala === nazwaSali) {
+                                if (!siatkaSali[dzien]) siatkaSali[dzien] = {};
+                                const klasaLink = `<a class="k" onclick="pokazPlanOddzialu('${oddzialId}')">${oddzialNazwa}</a>`;
+                                if (!siatkaSali[dzien][i]) siatkaSali[dzien][i] = [];
+                                siatkaSali[dzien][i].push({
+                                    grupa: lekcja.grupa,
+                                    przedmiot: lekcja.przedmiot,
+                                    nauczyciel: lekcja.nauczyciel,
+                                    kontekstInfo: klasaLink
+                                });
+                            }
+                        });
+                    });
+                }
+            });
+        });
+
+        let wiersze = "";
+        const numeryGodzin = Object.keys(godzinyZbiorczo).sort((a,b) => Number(a)-Number(b));
+        
+        if (numeryGodzin.length > 0) {
+            numeryGodzin.forEach(i => {
+                const h = godzinyZbiorczo[i];
+                wiersze += `<tr>
+                    <td class="nr">${i}</td>
+                    <td class="g">${h.od} - ${h.do}</td>`;
+                dni.forEach(dzien => {
+                    let cellText = "&nbsp;";
+                    if (siatkaSali[dzien] && siatkaSali[dzien][i]) {
+                        cellText = renderujKomorkeLekcji(siatkaSali[dzien][i].map(l => ({
+                            grupa: l.grupa,
+                            przedmiot: l.przedmiot,
+                            nauczyciel: l.nauczyciel,
+                            sala: null
+                        })), 'sala', siatkaSali[dzien][i].map(l => l.kontekstInfo).join(', '));
+                    }
+                    wiersze += `<td class="l">${cellText}</td>`;
+                });
+                wiersze += `</tr>`;
+            });
+        } else {
+            wiersze = `<tr><td colspan="7" class="l">Brak wpisów dla sali</td></tr>`;
+        }
+
+        document.getElementById('app').innerHTML = `
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tabtytul-szczegoly">
+                <tr>
+                    <td class="tytul-szczegoly">
+                        <img src="images/pusty.gif" height="50" width="1">
+                        <span class="tytulnapis-szczegoly">${formatSala(nazwaSali)}</span>
+                    </td>
+                </tr>
+            </table>
+            <div align="center">
+                <table border="0" cellpadding="10" cellspacing="0">
+                    <tr><td>
+                        <table border="1" cellspacing="0" cellpadding="4" class="tabela-szczegoly">
+                            <tr>
+                                <th>Nr</th>
+                                <th>Godz</th>
+                                ${dni.map(d => `<th>${d}</th>`).join('')}
+                            </tr>
+                            ${wiersze}
+                        </table>
+                    </td></tr>
+                    <tr>
+                        <td align="left" class="print-hide">
+                            <button onclick="window.location.href='index.html'">&laquo; Powrót do spisu</button>
+                            <a href="javascript:window.print()" style="margin-left: 15px;">Drukuj plan</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        `;
+        await zastosujKonfiguracje();
+    }
+
+    window.renderLoginView = function() {
+        const currentHeaderBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-header').trim() || '#80c2ab';
+        document.getElementById('app').innerHTML = `
+            <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+                <div class="box-center">
+                    <table class="tabela" border="0" cellpadding="4" cellspacing="0">
+                        <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Logowanie Administratora</th></tr>
+                        <tr><td width="30%"><strong>Login:</strong></td><td><input type="text" id="login-input"></td></tr>
+                        <tr><td><strong>Hasło:</strong></td><td><input type="password" id="pass-input"></td></tr>
+                        <tr>
+                            <td colspan="2" style="text-align:center;">
+                                <button id="zaloguj-btn" style="width:100%; margin-bottom:5px;">Zaloguj się</button>
+                                <button onclick="renderRegisterView()" style="width:100%;">Załóż nowe konto</button>
+                                <div id="auth-komunikat"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('zaloguj-btn').addEventListener('click', async (e) => {
+            const btn = e.target;
+            const login = document.getElementById('login-input').value.trim();
+            const haslo = document.getElementById('pass-input').value.trim();
+            const komunikat = document.getElementById('auth-komunikat');
+
+            if (!login || !haslo) { komunikat.className = "error"; komunikat.innerText = "Wprowadź dane!"; return; }
+
+            try {
+                btn.disabled = true;
+                const q = query(collection(db, "admini"), where("login", "==", login), where("haslo", "==", haslo));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    czyZalogowany = true;
+                    renderAdminPanel();
+                } else {
+                    komunikat.className = "error"; komunikat.innerText = "Błędne dane!"; btn.disabled = false;
+                }
+            } catch (error) {
+                komunikat.className = "error"; komunikat.innerText = "Błąd: " + error.message; btn.disabled = false;
+            }
+        });
+        zastosujKonfiguracje();
+    }
+
+    window.renderRegisterView = function() {
+        const currentHeaderBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-header').trim() || '#80c2ab';
+        document.getElementById('app').innerHTML = `
+            <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+                <div class="box-center">
+                    <table class="tabela" border="0" cellpadding="4" cellspacing="0">
+                        <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Rejestracja Administratora</th></tr>
+                        <tr><td width="30%"><strong>Nowy Login:</strong></td><td><input type="text" id="reg-login"></td></tr>
+                        <tr><td><strong>Nowe Hasło:</strong></td><td><input type="password" id="reg-pass"></td></tr>
+                        <tr>
+                            <td colspan="2" style="text-align:center;">
+                                <button id="zarejestruj-btn" style="width:100%; margin-bottom:5px;">Utwórz konto</button>
+                                <button onclick="renderLoginView()" style="width:100%;">Powrót</button>
+                                <div id="reg-komunikat"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('zarejestruj-btn').addEventListener('click', async (e) => {
+            const btn = e.target;
+            const login = document.getElementById('reg-login').value.trim();
+            const haslo = document.getElementById('reg-pass').value.trim();
+            const komunikat = document.getElementById('reg-komunikat');
+
+            if (!login || !haslo) { komunikat.className = "error"; komunikat.innerText = "Wypełnij oba pola!"; return; }
+
+            try {
+                btn.disabled = true;
+                const q = query(collection(db, "admini"), where("login", "==", login));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    komunikat.className = "error"; komunikat.innerText = "Użytkownik o takim loginie już istnieje."; btn.disabled = false; return;
+                }
+
+                await addDoc(collection(db, "admini"), { login: login, haslo: haslo });
+                komunikat.className = "success"; komunikat.innerText = "Konto utworzone pomyślnie!";
+                setTimeout(renderLoginView, 1500);
+            } catch (error) {
+                komunikat.className = "error"; komunikat.innerText = "Błąd: " + error.message; btn.disabled = false;
+            }
+        });
+        zastosujKonfiguracje();
+    }
+
+    window.otworzModalDodawania = function(kolekcja, tytul, placeholder) {
+        const existing = document.getElementById('dynamic-modal');
+        if (existing) existing.remove();
+
+        const currentHeaderBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-header').trim() || '#80c2ab';
+
+        const modalOverlay = document.createElement('div');
+        modalOverlay.id = 'dynamic-modal';
+        modalOverlay.className = 'modal-overlay';
+        modalOverlay.innerHTML = `
+            <div class="modal-box">
+                <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%;">
+                    <tr><th style="background:${currentHeaderBg}; color:#fff; padding:6px;">${tytul}</th></tr>
+                    <tr><td style="padding: 10px 4px;"><input type="text" id="modal-input-val" placeholder="${placeholder}"></td></tr>
+                    <tr>
+                        <td style="text-align:center; padding-top:8px;">
+                            <button id="modal-zapisz-btn" style="margin-right:5px;">Zapisz</button>
+                            <button onclick="document.getElementById('dynamic-modal').remove()">Anuluj</button>
+                            <div id="modal-komunikat"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        `;
+        document.body.appendChild(modalOverlay);
+        const inputField = document.getElementById('modal-input-val');
+        inputField.focus();
+
+        inputField.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('modal-zapisz-btn').click();
+            }
+        });
+
+        document.getElementById('modal-zapisz-btn').onclick = async function() {
+            const val = inputField.value.trim();
+            const komunikat = document.getElementById('modal-komunikat');
+            if (!val) {
+                komunikat.className = "error";
+                komunikat.innerText = "Pole nie może być puste!";
+                return;
+            }
+            try {
+                await addDoc(collection(db, kolekcja), { nazwa: val });
+                document.getElementById('dynamic-modal').remove();
+                renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+            } catch (e) {
+                komunikat.className = "error";
+                komunikat.innerText = "Błąd: " + e.message;
+            }
+        };
+    };
+
+    window.otworzModalPrzypisaniaPrzedmiotow = async function(nauczycielId, nauczycielNazwa) {
+        const przedmioty = await pobierzKolekcje("przedmioty");
+        const nauczycielDoc = await getDoc(doc(db, "nauczyciele", nauczycielId));
+        const daneNauczyciela = nauczycielDoc.exists() ? nauczycielDoc.data() : {};
+        const przypisane = daneNauczyciela.przedmioty || [];
+
+        const existing = document.getElementById('dynamic-modal');
+        if (existing) existing.remove();
+
+        const currentHeaderBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-header').trim() || '#80c2ab';
+
+        let przedmiotyCheckboxes = przedmioty.length > 0 ? przedmioty.map(p => {
+            const checked = przypisane.includes(p.nazwa) ? 'checked' : '';
+            return `<label style="display:block; margin-bottom:4px; cursor:pointer;"><input type="checkbox" value="${p.nazwa}" ${checked} style="width:auto; margin-right:5px;">${p.nazwa}</label>`;
+        }).join('') : 'Brak zdefiniowanych przedmiotów w bazie.';
+
+        const modalOverlay = document.createElement('div');
+        modalOverlay.id = 'dynamic-modal';
+        modalOverlay.className = 'modal-overlay';
+        modalOverlay.innerHTML = `
+            <div class="modal-box" style="width: 350px;">
+                <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%;">
+                    <tr><th style="background:${currentHeaderBg}; color:#fff; padding:6px;">Przedmioty: ${nauczycielNazwa}</th></tr>
+                    <tr><td style="padding: 10px; max-height: 220px; overflow-y: auto;">${przedmiotyCheckboxes}</td></tr>
+                    <tr>
+                        <td style="text-align:center; padding-top:8px;">
+                            <button id="modal-zapisz-przedmioty-btn" style="margin-right:5px;">Zapisz</button>
+                            <button onclick="document.getElementById('dynamic-modal').remove()">Anuluj</button>
+                            <div id="modal-komunikat"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        `;
+        document.body.appendChild(modalOverlay);
+
+        document.getElementById('modal-zapisz-przedmioty-btn').onclick = async function() {
+            const checkboxes = modalOverlay.querySelectorAll('input[type="checkbox"]');
+            const wybrane = [];
+            checkboxes.forEach(cb => {
+                if (cb.checked) wybrane.push(cb.value);
+            });
+
+            const komunikat = document.getElementById('modal-komunikat');
+            try {
+                await updateDoc(doc(db, "nauczyciele", nauczycielId), { przedmioty: wybrane });
+                document.getElementById('dynamic-modal').remove();
+                renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+            } catch (e) {
+                komunikat.className = "error";
+                komunikat.innerText = "Błąd: " + e.message;
+            }
+        };
+    };
+
+    window.renderAdminPanel = async function(planEdycja = null) {
+        const config = await pobierzKonfiguracje();
+        await zastosujKonfiguracje();
+        const oddzialy = await pobierzKolekcje("oddzialy");
+        const nauczyciele = await pobierzKolekcje("nauczyciele");
+        const sale = await pobierzKolekcje("sale");
+        const przedmioty = await pobierzKolekcje("przedmioty");
+        const plany = await pobierzKolekcje("plany_lekcji");
+
+        edytowanyPlanId = planEdycja ? planEdycja.id : null;
+
+        let oddzialyList = oddzialy.map(o => `<li>${o.nazwa} <button onclick="edytujZasob('oddzialy', '${o.id}', '${o.nazwa}')" style="padding:1px 3px; font-size:9px;">Edytuj</button> <button onclick="usunZasob('oddzialy', '${o.id}')" style="color:red; padding:1px 3px; font-size:9px;">Usuń</button></li>`).join('');
+        
+        let nauczycieleList = nauczyciele.map(n => {
+            const przedmiotyTxt = n.przedmioty && n.przedmioty.length > 0 ? `<br><span style="color:#444; font-size:10px;">Przedmioty: ${n.przedmioty.join(', ')}</span>` : '';
+            return `<li><b>${n.nazwa}</b>${przedmiotyTxt}<div style="margin-top:2px; margin-bottom:4px;"><button onclick="otworzModalPrzypisaniaPrzedmiotow('${n.id}', '${n.nazwa}')" style="padding:1px 3px; font-size:9px;">Przedmioty</button> <button onclick="edytujZasob('nauczyciele', '${n.id}', '${n.nazwa}')" style="padding:1px 3px; font-size:9px;">Edytuj</button> <button onclick="usunZasob('nauczyciele', '${n.id}')" style="color:red; padding:1px 3px; font-size:9px;">Usuń</button></div></li>`;
+        }).join('');
+
+        let saleList = sale.map(s => `<li>${s.nazwa} <button onclick="edytujZasob('sale', '${s.id}', '${s.nazwa}')" style="padding:1px 3px; font-size:9px;">Edytuj</button> <button onclick="usunZasob('sale', '${s.id}')" style="color:red; padding:1px 3px; font-size:9px;">Usuń</button></li>`).join('');
+        let przedmiotyList = przedmioty.map(p => `<li>${p.nazwa} <button onclick="edytujZasob('przedmioty', '${p.id}', '${p.nazwa}')" style="padding:1px 3px; font-size:9px;">Edytuj</button> <button onclick="usunZasob('przedmioty', '${p.id}')" style="color:red; padding:1px 3px; font-size:9px;">Usuń</button></li>`).join('');
+
+        let planyZarzadzanie = plany.map(p => {
+            const o = oddzialy.find(x => x.id === p.oddzialId);
+            const nazwaKlasy = o ? o.nazwa : "Nieznana klasa";
+            return `<tr>
+                <td>Plan dla: <strong>${nazwaKlasy}</strong> ${edytowanyPlanId === p.id ? '<span style="color:green;">(Edytowany obecnie)</span>' : ''}</td>
+                <td style="text-align:center;">
+                    <button onclick="edytujPlan('${p.id}')">Edytuj</button>
+                    <button onclick="usunPlan('${p.id}')" style="color:red;">Usuń</button>
+                </td>
+            </tr>`;
+        }).join('');
+
+        let oddzialyOptions = '<option value="">-- wybierz oddział (klasę) --</option>' + oddzialy.map(o => `<option value="${o.id}" ${planEdycja && planEdycja.oddzialId === o.id ? 'selected' : ''}>${o.nazwa}</option>`).join('');
+        const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
+        const currentHeaderBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-header').trim() || '#80c2ab';
+
+        const motywyOpcje = [
+            { id: "morski", nazwa: "Morski (Klasyczny)" },
+            { id: "niebieski", nazwa: "Niebieski Elegancki" },
+            { id: "ciemny", nazwa: "Ciemny (Dark Mode)" },
+            { id: "czerwony", nazwa: "Czerwony / Bordowy" },
+            { id: "fioletowy", nazwa: "Fioletowy" },
+            { id: "zielony", nazwa: "Zielony Leśny" },
+            { id: "sloneczny", nazwa: "Słoneczny / Żółty" },
+            { id: "szary", nazwa: "Stalowy Szary" },
+            { id: "rozowy", nazwa: "Różowy Pastelowy" },
+            { id: "turkusowy", nazwa: "Turkusowy" },
+            { id: "pomaranczowy", nazwa: "Pomarańczowy" },
+            { id: "mietowy", nazwa: "Miętowy Pastelowy" },
+            { id: "kawowy", nazwa: "Kawowy / Brązowy" },
+            { id: "malinowy", nazwa: "Malinowy" },
+            { id: "zloty", nazwa: "Złoty / Piaskowy" }
+        ].map(m => `<option value="${m.id}" ${config.theme === m.id ? 'selected' : ''}>${m.nazwa}</option>`).join('');
+
+        document.getElementById('app').innerHTML = `
+            <div style="margin: 15px 20px;">
+                <div style="display: flex; justify-content: flex-end; margin-bottom:10px;">
+                    <button onclick="wyloguj()">Wyloguj</button>
+                </div>
+
+                <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%; margin-bottom:15px;">
+                    <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Ustawienia wyglądu i konfiguracji</th></tr>
+                    <tr>
+                        <td width="25%"><strong>Motyw graficzny:</strong></td>
+                        <td>
+                            <select id="admin-theme-select" style="width: 250px; display:inline-block; margin-right: 10px;">
+                                ${motywyOpcje}
+                            </select>
+                            <button onclick="zapiszMotywAdmin()">Zmień motyw</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nagłówek strony:</strong></td>
+                        <td>
+                            <input type="text" id="admin-naglowek-input" value="${config.naglowek || 'VULCAN OPTIVUM PLAN'}" style="width: 250px; display: inline-block; margin-right: 10px;">
+                            <button onclick="zapiszNaglowekAdmin()">Zapisz nagłówek</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Widoczność przycisku Panel Admina:</strong></td>
+                        <td>
+                            <input type="checkbox" id="admin-btn-visibility-toggle" ${config.pokazPrzyciskAdmina !== false ? 'checked' : ''} style="width:auto; margin-right: 10px;">
+                            <button onclick="zapiszWidocznoscPrzyciskuAdmina()">Zapisz ustawienie</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Format nauczycieli na planie:</strong></td>
+                        <td>
+                            <select id="admin-format-nauczyciela" style="width: 250px; display:inline-block; margin-right: 10px;">
+                                <option value="pelny" ${config.formatNauczyciela === 'pelny' ? 'selected' : ''}>Pełne imię i nazwisko (np. Jan Kowalski)</option>
+                                <option value="inicjal" ${config.formatNauczyciela === 'inicjal' ? 'selected' : ''}>Inicjał i nazwisko (np. J. Kowalski)</option>
+                                <option value="nazwisko" ${config.formatNauczyciela === 'nazwisko' ? 'selected' : ''}>Tylko nazwisko (np. Kowalski)</option>
+                            </select>
+                            <button onclick="zapiszOpcjeWyswietlania()">Zapisz format</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Format sal na planie:</strong></td>
+                        <td>
+                            <select id="admin-format-sali" style="width: 250px; display:inline-block; margin-right: 10px;">
+                                <option value="pelny" ${config.formatSali === 'pelny' ? 'selected' : ''}>Pełna nazwa (np. Sala 120)</option>
+                                <option value="skrot" ${config.formatSali === 'skrot' ? 'selected' : ''}>Bez słowa "Sala" (np. 120)</option>
+                            </select>
+                            <button onclick="zapiszOpcjeWyswietlania()">Zapisz format</button>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%; margin-bottom:15px;">
+                    <tr><th colspan="4" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Zarządzanie bazą zasobów</th></tr>
+                    <tr>
+                        <td width="25%" style="vertical-align:top;">
+                            <strong>Oddziały (Klasy)</strong><br>
+                            <button onclick="otworzModalDodawania('oddzialy', 'Dodaj oddział (klasę)', 'np. 5Tb')" style="margin-top:5px; width:100%;">+ Dodaj klasę</button>
+                            <ul style="padding-left:15px; font-size:11px; margin-top:5px; line-height: 1.6;">${oddzialyList || 'Brak'}</ul>
+                        </td>
+                        <td width="25%" style="vertical-align:top;">
+                            <strong>Nauczyciele</strong><br>
+                            <button onclick="otworzModalDodawania('nauczyciele', 'Dodaj nauczyciela', 'np. Jan Kowalski')" style="margin-top:5px; width:100%;">+ Dodaj nauczyciela</button>
+                            <ul style="padding-left:15px; font-size:11px; margin-top:5px; line-height: 1.6;">${nauczycieleList || 'Brak'}</ul>
+                        </td>
+                        <td width="25%" style="vertical-align:top;">
+                            <strong>Sale</strong><br>
+                            <button onclick="otworzModalDodawania('sale', 'Dodaj salę', 'np. Sala 120')" style="margin-top:5px; width:100%;">+ Dodaj salę</button>
+                            <ul style="padding-left:15px; font-size:11px; margin-top:5px; line-height: 1.6;">${saleList || 'Brak'}</ul>
+                        </td>
+                        <td width="25%" style="vertical-align:top;">
+                            <strong>Przedmioty</strong><br>
+                            <button onclick="otworzModalDodawania('przedmioty', 'Dodaj przedmiot', 'np. Matematyka')" style="margin-top:5px; width:100%;">+ Dodaj przedmiot</button>
+                            <ul style="padding-left:15px; font-size:11px; margin-top:5px; line-height: 1.6;">${przedmiotyList || 'Brak'}</ul>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%; margin-bottom:15px;">
+                    <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">${edytowanyPlanId ? 'Edycja Planu Lekcji' : 'Tworzenie Nowego Planu Lekcji'}</th></tr>
+                    <tr>
+                        <td width="20%"><strong>Wybierz Oddział:</strong></td>
+                        <td><select id="admin-oddzial-id" style="width:300px;">${oddzialyOptions}</select></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="background:var(--bg-table); padding:6px;">
+                            <strong>Godziny lekcyjne:</strong> 
+                            Nr: <input type="text" id="input-new-nr" placeholder="1" style="width:40px; display:inline-block;"> 
+                            Od: <input type="text" id="input-new-od" placeholder="8:00" style="width:70px; display:inline-block;"> 
+                            Do: <input type="text" id="input-new-do" placeholder="8:45" style="width:70px; display:inline-block;">
+                            <button onclick="dodajWierszGodziny()" style="margin-left:5px;">+ Dodaj godzinę</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding:0;">
+                            <table class="tabela editor-table" border="0" cellpadding="4" cellspacing="0" style="width:100%; border:none; margin-bottom:0;">
+                                <thead>
+                                    <tr style="background:${currentHeaderBg}; color:#fff;"><th>Nr</th><th>Godzina</th>${dni.map(d => `<th>${d}</th>`).join('')}<th>Akcja</th></tr>
+                                </thead>
+                                <tbody id="edytor-tbody"></tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:center; padding: 10px;">
+                            <button id="zapisz-plan-btn" style="width:250px;">${edytowanyPlanId ? 'Zapisz zmiany w planie' : 'Utwórz nowy plan'}</button>
+                            ${edytowanyPlanId ? '<button onclick="anulujEdycje()" style="margin-left:10px;">Anuluj edycję</button>' : ''}
+                            <div id="admin-komunikat"></div>
+                            <div id="konflikty-komunikat" style="color: #b00000; font-weight: bold; margin-top: 5px;"></div>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%;">
+                    <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Istniejące plany w bazie</th></tr>
+                    ${planyZarzadzanie || '<tr><td colspan="2" style="text-align:center;">Brak wpisów</td></tr>'}
+                </table>
+            </div>
+        `;
+
+        async function sprawdzKolizjeRęczne() {
+            const warningBox = document.getElementById('konflikty-komunikat');
+            if (!warningBox) return;
+
+            const aktualnyOddzialId = document.getElementById('admin-oddzial-id').value;
+            const planyWszystkie = await pobierzKolekcje("plany_lekcji");
+
+            let zajeciNauczyciele = {};
+            let zajeteSale = {};
+
+            planyWszystkie.forEach(p => {
+                if (edytowanyPlanId && p.id === edytowanyPlanId) return;
+                if (!edytowanyPlanId && p.oddzialId === aktualnyOddzialId) return;
+
+                if (p.siatka) {
+                    Object.keys(p.siatka).forEach(dzien => {
+                        if (!zajeciNauczyciele[dzien]) zajeciNauczyciele[dzien] = {};
+                        if (!zajeteSale[dzien]) zajeteSale[dzien] = {};
+                        Object.keys(p.siatka[dzien]).forEach(nr => {
+                            if (!zajeciNauczyciele[dzien][nr]) zajeciNauczyciele[dzien][nr] = new Set();
+                            if (!zajeteSale[dzien][nr]) zajeteSale[dzien][nr] = new Set();
+
+                            const lekcje = Array.isArray(p.siatka[dzien][nr]) ? p.siatka[dzien][nr] : [p.siatka[dzien][nr]];
+                            lekcje.forEach(l => {
+                                if (l.nauczyciel) zajeciNauczyciele[dzien][nr].add(l.nauczyciel);
+                                if (l.sala) zajeteSale[dzien][nr].add(l.sala);
+                            });
+                        });
+                    });
+                }
+            });
+
+            let kolizjeWykryte = [];
+            const wiersze = document.querySelectorAll('#edytor-tbody tr');
+
+            wiersze.forEach(tr => {
+                const nr = tr.getAttribute('data-nr');
+                dni.forEach(dzien => {
+                    const komorkaDnia = tr.querySelector(`button[onclick*="${dzien}" ]`)?.previousElementSibling;
+                    if (!komorkaDnia) return;
+                    const grupyItems = komorkaDnia.querySelectorAll('.grupa-item');
+
+                    grupyItems.forEach(item => {
+                        const nVal = item.querySelector('select[data-pole="nauczyciel"]').value;
+                        const sVal = item.querySelector('select[data-pole="sala"]').value;
+
+                        if (nVal && zajeciNauczyciele[dzien]?.[nr]?.has(nVal)) {
+                            kolizjeWykryte.push(`Nauczyciel <b>${nVal}</b> jest już zajęty w ${dzien} na ${nr} godzinie!`);
+                        }
+                        if (sVal && zajeteSale[dzien]?.[nr]?.has(sVal)) {
+                            kolizjeWykryte.push(`Sala <b>${sVal}</b> jest już zajęta w ${dzien} na ${nr} godzinie!`);
+                        }
+                    });
+                });
+            });
+
+            if (kolizjeWykryte.length > 0) {
+                warningBox.innerHTML = "⚠️ Ostrzeżenie o kolizjach:<br>" + [...new Set(kolizjeWykryte)].join("<br>");
+            } else {
+                warningBox.innerHTML = "";
+            }
+        }
+
+        window.zapiszMotywAdmin = async function() {
+            const wybranyMotyw = document.getElementById('admin-theme-select').value;
+            await zmienMotyw(wybranyMotyw);
+            renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+        };
+
+        window.zapiszNaglowekAdmin = async function() {
+            const nowyNaglowek = document.getElementById('admin-naglowek-input').value.trim();
+            if (!nowyNaglowek) return;
+            try {
+                await setDoc(doc(db, "ustawienia", "konfiguracja"), { naglowek: nowyNaglowek }, { merge: true });
+                document.getElementById('header-title-text').innerText = nowyNaglowek;
+                document.getElementById('page-title').innerText = nowyNaglowek;
+                alert("Nagłówek został zaktualizowany!");
+            } catch(e) {
+                alert("Błąd zapisu nagłówka: " + e.message);
+            }
+        };
+
+        window.zapiszWidocznoscPrzyciskuAdmina = async function() {
+            const isVisible = document.getElementById('admin-btn-visibility-toggle').checked;
+            try {
+                await setDoc(doc(db, "ustawienia", "konfiguracja"), { pokazPrzyciskAdmina: isVisible }, { merge: true });
+                await zastosujKonfiguracje();
+                alert("Ustawienie widoczności przycisku zostało zapisane!");
+                renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+            } catch(e) {
+                alert("Błąd zapisu widoczności przycisku: " + e.message);
+            }
+        };
+
+        window.zapiszOpcjeWyswietlania = async function() {
+            const formatNauczyciela = document.getElementById('admin-format-nauczyciela').value;
+            const formatSali = document.getElementById('admin-format-sali').value;
+            try {
+                await setDoc(doc(db, "ustawienia", "konfiguracja"), { 
+                    formatNauczyciela, 
+                    formatSali 
+                }, { merge: true });
+                await zastosujKonfiguracje();
+                alert("Opcje wyświetlania zostały zapisane!");
+                renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+            } catch(e) {
+                alert("Błąd zapisu opcji: " + e.message);
+            }
+        };
+
+        window.dodajWpisGrupy = function(btnElem, dzien, dane = {}) {
+            const container = btnElem.previousElementSibling;
+            const div = document.createElement('div');
+            div.className = "grupa-item";
+            div.style.cssText = "margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px dashed #aaa;";
+
+            let pOpt = '<option value="">-- przedm. --</option>' + przedmioty.map(p => `<option value="${p.nazwa}" ${dane.przedmiot === p.nazwa ? 'selected' : ''}>${p.nazwa}</option>`).join('');
+            let nOpt = '<option value="">-- nauczyciel --</option>' + nauczyciele.map(n => `<option value="${n.nazwa}" ${dane.nauczyciel === n.nazwa ? 'selected' : ''}>${n.nazwa}</option>`).join('');
+            let sOpt = '<option value="">-- sala --</option>' + sale.map(s => `<option value="${s.nazwa}" ${dane.sala === s.nazwa ? 'selected' : ''}>${s.nazwa}</option>`).join('');
+
+            div.innerHTML = `
+                <div style="display:flex; gap:2px; margin-bottom:2px;">
+                    <input type="text" data-pole="grupa" placeholder="gr. 1" value="${dane.grupa || ''}" style="width:45px;">
+                    <button type="button" onclick="this.closest('.grupa-item').remove(); sprawdzKolizjeRęczne();" style="color:red; font-size:9px; padding:0 3px;" title="Usuń grupę">X</button>
+                </div>
+                <select data-pole="przedmiot">${pOpt}</select><br>
+                <select data-pole="nauczyciel">${nOpt}</select><br>
+                <select data-pole="sala">${sOpt}</select>
+            `;
+            container.appendChild(div);
+
+            const nSelect = div.querySelector('select[data-pole="nauczyciel"]');
+            const pSelect = div.querySelector('select[data-pole="przedmiot"]');
+            const sSelect = div.querySelector('select[data-pole="sala"]');
+
+            nSelect.addEventListener('change', (e) => {
+                sprawdzKolizjeRęczne();
+                const selectedTeacherName = e.target.value;
+                if (!selectedTeacherName) {
+                    pSelect.innerHTML = '<option value="">-- przedm. --</option>' + przedmioty.map(p => `<option value="${p.nazwa}">${p.nazwa}</option>`).join('');
+                    return;
+                }
+                const teacherObj = nauczyciele.find(n => n.nazwa === selectedTeacherName);
+                const allowedSubjects = teacherObj && teacherObj.przedmioty ? teacherObj.przedmioty : [];
+
+                if (allowedSubjects.length === 1) {
+                    pSelect.innerHTML = `<option value="${allowedSubjects[0]}" selected>${allowedSubjects[0]}</option>`;
+                } else if (allowedSubjects.length > 1) {
+                    pSelect.innerHTML = '<option value="">-- wybierz przedmiot --</option>' + allowedSubjects.map(s => `<option value="${s}">${s}</option>`).join('');
+                } else {
+                    pSelect.innerHTML = '<option value="">-- brak przedmiotów --</option>';
+                }
+            });
+
+            sSelect.addEventListener('change', () => sprawdzKolizjeRęczne());
+
+            pSelect.addEventListener('change', (e) => {
+                const selectedSubjectName = e.target.value;
+                if (!selectedSubjectName) {
+                    nSelect.innerHTML = '<option value="">-- nauczyciel --</option>' + nauczyciele.map(n => `<option value="${n.nazwa}">${n.nazwa}</option>`).join('');
+                    return;
+                }
+                const matchingTeachers = nauczyciele.filter(n => n.przedmioty && n.przedmioty.includes(selectedSubjectName));
+
+                if (matchingTeachers.length === 1) {
+                    nSelect.innerHTML = `<option value="${matchingTeachers[0].nazwa}" selected>${matchingTeachers[0].nazwa}</option>`;
+                } else if (matchingTeachers.length > 1) {
+                    nSelect.innerHTML = '<option value="">-- wybierz nauczyciela --</option>' + matchingTeachers.map(n => `<option value="${n.nazwa}">${n.nazwa}</option>`).join('');
+                } else {
+                    nSelect.innerHTML = '<option value="">-- brak nauczycieli --</option>';
+                }
+            });
+
+            sprawdzKolizjeRęczne();
+        };
+
+        window.dodajWierszGodziny = function(nrVal = "", odVal = "", doVal = "", valuesDni = {}) {
+            const nr = nrVal || document.getElementById('input-new-nr').value.trim();
+            const od = odVal || document.getElementById('input-new-od').value.trim();
+            const doH = doVal || document.getElementById('input-new-do').value.trim();
+
+            if (!nr || !od || !doH) {
+                if (!nrVal) alert("Wypełnij numer oraz godziny od-do!");
+                return;
+            }
+
+            if (!nrVal && document.querySelector(`#edytor-tbody tr[data-nr="${nr}"]`)) {
+                alert("Godzina o takim numerze już jest w tabeli!");
+                return;
+            }
+
+            const tbody = document.getElementById('edytor-tbody');
+            let tr = document.createElement('tr');
+            tr.setAttribute('data-nr', nr);
+            tr.setAttribute('data-od', od);
+            tr.setAttribute('data-do', doH);
+
+            let tdHtml = `
+                <td class="nr">${nr}</td>
+                <td class="g">${od} - ${doH}</td>
+            `;
+
+            dni.forEach(dzien => {
+                tdHtml += `<td>
+                    <div class="grupy-kontener"></div>
+                    <button type="button" onclick="dodajWpisGrupy(this, '${dzien}')" style="font-size:9px; width:100%; margin-top:2px;">+ Grupa</button>
+                </td>`;
+            });
+
+            tdHtml += `<td style="text-align:center;"><button onclick="this.closest('tr').remove(); sprawdzKolizjeRęczne();" style="color:red; font-size:10px;">Usuń wiersz</button></td>`;
+            tr.innerHTML = tdHtml;
+            tbody.appendChild(tr);
+
+            const komorkiDni = tr.querySelectorAll('.grupy-kontener');
+            dni.forEach((dzien, idx) => {
+                const lekcjeZDnia = (valuesDni && valuesDni[dzien]) ? (Array.isArray(valuesDni[dzien]) ? valuesDni[dzien] : [valuesDni[dzien]]) : [];
+                const btnDodaj = komorkiDni[idx].nextElementSibling;
+                if (lekcjeZDnia.length > 0) {
+                    lekcjeZDnia.forEach(l => window.dodajWpisGrupy(btnDodaj, dzien, l));
+                } else {
+                    window.dodajWpisGrupy(btnDodaj, dzien);
+                }
+            });
+
+            if (!nrVal) {
+                document.getElementById('input-new-nr').value = "";
+                document.getElementById('input-new-od').value = "";
+                document.getElementById('input-new-do').value = "";
+            }
+        };
+
+        if (planEdycja && planEdycja.godziny) {
+            const numery = Object.keys(planEdycja.godziny).sort((a,b) => Number(a)-Number(b));
+            numery.forEach(nr => {
+                const h = planEdycja.godziny[nr];
+                const siatkaDni = planEdycja.siatka ? planEdycja.siatka : {};
+                let dniMap = {};
+                dni.forEach(dzien => {
+                    if (siatkaDni[dzien] && siatkaDni[dzien][nr]) {
+                        dniMap[dzien] = siatkaDni[dzien][nr];
+                    }
+                });
+                window.dodajWierszGodziny(nr, h.od, h.do, dniMap);
+            });
+        }
+
+        document.getElementById('zapisz-plan-btn').onclick = async function(e) {
+            const btn = e.target;
+            const oddzialId = document.getElementById('admin-oddzial-id').value;
+            const komunikat = document.getElementById('admin-komunikat');
+
+            if (!oddzialId) {
+                komunikat.className = "error";
+                komunikat.innerText = "Wybierz oddział (klasę)!";
+                return;
+            }
+
+            let godziny = {};
+            let siatka = {};
+            dni.forEach(d => siatka[d] = {});
+
+            const wiersze = document.querySelectorAll('#edytor-tbody tr');
+            if (wiersze.length === 0) {
+                komunikat.className = "error";
+                komunikat.innerText = "Dodaj przynajmniej jedną godzinę lekcyjną!";
+                return;
+            }
+
+            wiersze.forEach(tr => {
+                const nr = tr.getAttribute('data-nr');
+                const od = tr.getAttribute('data-od');
+                const doH = tr.getAttribute('data-do');
+
+                godziny[nr] = { od, do: doH };
+
+                dni.forEach(dzien => {
+                    const komorkaDnia = tr.querySelector(`button[onclick*="${dzien}" ]`).previousElementSibling;
+                    const grupyItems = komorkaDnia.querySelectorAll('.grupa-item');
+                    let listaLekcjiDlaKomorki = [];
+
+                    grupyItems.forEach(item => {
+                        const selGrupa = item.querySelector('input[data-pole="grupa"]').value.trim();
+                        const selPrzedmiot = item.querySelector('select[data-pole="przedmiot"]').value;
+                        const selNauczyciel = item.querySelector('select[data-pole="nauczyciel"]').value;
+                        const selSala = item.querySelector('select[data-pole="sala"]').value;
+
+                        if (selPrzedmiot || selNauczyciel || selSala) {
+                            listaLekcjiDlaKomorki.push({
+                                grupa: selGrupa,
+                                przedmiot: selPrzedmiot,
+                                nauczyciel: selNauczyciel,
+                                sala: selSala
+                            });
+                        }
+                    });
+
+                    if (listaLekcjiDlaKomorki.length > 0) {
+                        siatka[dzien][nr] = listaLekcjiDlaKomorki;
+                    }
+                });
+            });
+
+            try {
+                btn.disabled = true;
+                if (edytowanyPlanId) {
+                    await updateDoc(doc(db, "plany_lekcji", edytowanyPlanId), { oddzialId, godziny, siatka });
+                    komunikat.className = "success";
+                    komunikat.innerText = "Zapisano zmiany w planie!";
+                } else {
+                    const q = query(collection(db, "plany_lekcji"), where("oddzialId", "==", oddzialId));
+                    const querySnapshot = await getDocs(q);
+                    if (!querySnapshot.empty) {
+                        komunikat.className = "error";
+                        komunikat.innerText = "Plan dla tej klasy już istnieje!";
+                        btn.disabled = false;
+                        return;
+                    }
+                    await addDoc(collection(db, "plany_lekcji"), { oddzialId, godziny, siatka });
+                    komunikat.className = "success";
+                    komunikat.innerText = "Utworzono nowy plan!";
+                }
+                setTimeout(() => renderAdminPanel(), 1000);
+            } catch (error) {
+                komunikat.className = "error";
+                komunikat.innerText = "Błąd zapisu: " + error.message;
+                btn.disabled = false;
+            }
+        };
+        await zastosujKonfiguracje();
+    };
+
+    window.edytujPlan = async function(id) {
+        const plany = await pobierzKolekcje("plany_lekcji");
+        const plan = plany.find(p => p.id === id);
+        if (plan) renderAdminPanel(plan);
+    }
+
+    window.anulujEdycje = function() { renderAdminPanel(); }
+
+    window.edytujZasob = async function(kolekcja, id, staraNazwa) {
+        const nowaNazwa = prompt("Edytuj nazwę:", staraNazwa);
+        if (nowaNazwa !== null && nowaNazwa.trim() !== "") {
+            try {
+                await updateDoc(doc(db, kolekcja, id), { nazwa: nowaNazwa.trim() });
+                renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+            } catch (e) { alert("Błąd: " + e.message); }
+        }
+    }
+
+    window.usunZasob = async function(kolekcja, id) {
+        if (confirm("Usunąć element?")) {
+            try {
+                await deleteDoc(doc(db, kolekcja, id));
+                renderAdminPanel();
+            } catch (e) { alert("Błąd: " + e.message); }
+        }
+    }
+
+    window.usunPlan = async function(id) {
+        if (confirm("Usunąć ten plan?")) {
+            try {
+                await deleteDoc(doc(db, "plany_lekcji", id));
+                if (edytowanyPlanId === id) edytowanyPlanId = null;
+                renderAdminPanel();
+            } catch (e) { alert("Błąd: " + e.message); }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        try {
+            await zastosujKonfiguracje();
+            await renderPublicView();
+        } catch (e) {
+            console.error("Błąd inicjalizacji:", e);
+        }
+    });
+</script>
+
+</body>
+</html>
