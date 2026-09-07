@@ -87,11 +87,19 @@
             border-color: #c0c0c0;
         }
 
+        table.tabela-szczegoly th, 
+        table.tabela-szczegoly td.l, 
+        table.tabela-szczegoly td.nr, 
+        table.tabela-szczegoly td.g {
+            border: 1px solid #808080;
+            text-align: center;
+            vertical-align: middle;
+        }
+
         table.tabela-szczegoly th {
             background-color: var(--bg-table);
             color: #000099;
             font-size: 13px;
-            border: 1px solid #808080;
             padding: 4px;
         }
 
@@ -102,7 +110,6 @@
             vertical-align: middle;
             text-align: center;
             white-space: nowrap;
-            border: 1px solid #808080;
             border-right: 2px solid #555555;
             padding: 6px 8px;
         }
@@ -113,8 +120,12 @@
             font-weight: bold;
             text-align: center;
             vertical-align: middle;
-            border: 1px solid #808080;
             padding: 6px 4px;
+        }
+
+        td.l {
+            padding: 6px;
+            background-color: #ffffff;
         }
 
         a.n, a.s, a.k { 
@@ -192,6 +203,7 @@
         .box-center {
             width: 450px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .modal-overlay {
@@ -268,6 +280,28 @@
         pokazPrzyciskAdmina: true
     };
 
+    const domyslneDzwonki = {
+        "1": { od: "8:00", do: "8:45" },
+        "2": { od: "8:55", do: "9:40" },
+        "3": { od: "9:50", do: "10:35" },
+        "4": { od: "10:55", do: "11:40" },
+        "5": { od: "11:50", do: "12:35" },
+        "6": { od: "12:45", do: "13:30" },
+        "7": { od: "13:40", do: "14:25" }
+    };
+
+    async function pobierzDzwonki() {
+        try {
+            const docSnap = await getDoc(doc(db, "ustawienia", "dzwonki"));
+            if (docSnap.exists() && docSnap.data().godziny) {
+                return docSnap.data().godziny;
+            }
+        } catch(e) {
+            console.error("Błąd pobierania dzwonków: ", e);
+        }
+        return domyslneDzwonki;
+    }
+
     const motywy = {
         morski: { header: "#80c2ab", border: "#bddfd0", table: "#bddfd0", hover: "#6ea995", text: "#000", link: "#000080", visited: "#5377b6", linkHover: "#0000ff", cell: "#ffffff" },
         niebieski: { header: "#2b5876", border: "#608bb5", table: "#d2e4f7", hover: "#1f4056", text: "#000", link: "#000080", visited: "#457b9d", linkHover: "#0056b3", cell: "#ffffff" },
@@ -283,7 +317,14 @@
         mietowy: { header: "#1abc9c", border: "#a3e4d7", table: "#e8f8f5", hover: "#16a085", text: "#000", link: "#000080", visited: "#2980b9", linkHover: "#2c3e50", cell: "#ffffff" },
         kawowy: { header: "#5c4033", border: "#8b5a2b", table: "#f5deb3", hover: "#3e2723", text: "#000", link: "#000080", visited: "#8b4513", linkHover: "#d2691e", cell: "#ffffff" },
         malinowy: { header: "#d81b60", border: "#f48fb1", table: "#fce4ec", hover: "#ad1457", text: "#000", link: "#000080", visited: "#6a1b9a", linkHover: "#880e4f", cell: "#ffffff" },
-        zloty: { header: "#b8860b", border: "#f0e68c", table: "#fff8dc", hover: "#daa520", text: "#000", link: "#000080", visited: "#8b4513", linkHover: "#d2691e", cell: "#ffffff" }
+        zloty: { header: "#b8860b", border: "#f0e68c", table: "#fff8dc", hover: "#daa520", text: "#000", link: "#000080", visited: "#8b4513", linkHover: "#d2691e", cell: "#ffffff" },
+        // Nowe eleganckie motywy
+        szafirowy: { header: "#1a237e", border: "#7986cb", table: "#e8eaf6", hover: "#0d47a1", text: "#000", link: "#000080", visited: "#3f51b5", linkHover: "#1a237e", cell: "#ffffff" },
+        bordo_luksus: { header: "#4a1525", border: "#d7b4bc", table: "#f9f2f4", hover: "#2d0c15", text: "#000", link: "#000080", visited: "#6b2737", linkHover: "#4a1525", cell: "#ffffff" },
+        szmaragdowy: { header: "#004d40", border: "#80cbc4", table: "#e0f2f1", hover: "#00332c", text: "#000", link: "#000080", visited: "#00796b", linkHover: "#004d40", cell: "#ffffff" },
+        antracyt: { header: "#263238", border: "#90a4ae", table: "#eceff1", hover: "#102027", text: "#fff", link: "#80cbc4", visited: "#b0bec5", linkHover: "#ffffff", cell: "#37474f" },
+        kremowy_elegancki: { header: "#6d4c41", border: "#d7ccc8", table: "#efebe9", hover: "#4e342e", text: "#000", link: "#000080", visited: "#8d6e63", linkHover: "#6d4c41", cell: "#ffffff" },
+        lawendowy: { header: "#512da8", border: "#b39ddb", table: "#ede7f6", hover: "#311b92", text: "#000", link: "#000080", visited: "#673ab7", linkHover: "#512da8", cell: "#ffffff" }
     };
 
     async function pobierzKonfiguracje() {
@@ -465,7 +506,7 @@
                 oddzialyHTML = "<tr><td style='text-align:left;'>Brak oddziałów w bazie</td></tr>";
             } else {
                 oddzialyChunks.forEach(row => {
-                    oddzialyHTML += "<tr>" + row.map(o => `<td style="text-align:left; width: ${100/8}%; padding-left: 4px;"><a class="k" onclick="pokazPlanOddzialu('${o.id}')">${o.nazwa}</a></td>`).join('') + "</tr>";
+                    oddzialyHTML += "<tr>" + row.map(o => `<td style="text-align:left; width: ${100/8}%; padding: 2px 4px;"><a class="k" onclick="pokazPlanOddzialu('${o.id}')">${o.nazwa}</a></td>`).join('') + "</tr>";
                 });
             }
 
@@ -475,7 +516,7 @@
                 nauczycieleHTML = "<tr><td style='text-align:left;'>Brak nauczycieli w bazie</td></tr>";
             } else {
                 nauczycieleChunks.forEach(row => {
-                    nauczycieleHTML += "<tr>" + row.map(n => `<td style="text-align:left; width: ${100/3}%; padding-left: 4px;"><a class="n" onclick="pokazPlanNauczyciela('${n.nazwa}')">${formatNauczyciel(n.nazwa)}</a></td>`).join('') + "</tr>";
+                    nauczycieleHTML += "<tr>" + row.map(n => `<td style="text-align:left; width: ${100/3}%; padding: 2px 4px;"><a class="n" onclick="pokazPlanNauczyciela('${n.nazwa}')">${formatNauczyciel(n.nazwa)}</a></td>`).join('') + "</tr>";
                 });
             }
 
@@ -485,7 +526,7 @@
                 saleHTML = "<tr><td style='text-align:left;'>Brak sal w bazie</td></tr>";
             } else {
                 saleChunks.forEach(row => {
-                    saleHTML += "<tr>" + row.map(s => `<td style="text-align:left; width: ${100/3}%; padding-left: 4px;"><a class="s" onclick="pokazPlanSal('${s.nazwa}')">${formatSala(s.nazwa)}</a></td>`).join('') + "</tr>";
+                    saleHTML += "<tr>" + row.map(s => `<td style="text-align:left; width: ${100/3}%; padding: 2px 4px;"><a class="s" onclick="pokazPlanSal('${s.nazwa}')">${formatSala(s.nazwa)}</a></td>`).join('') + "</tr>";
                 });
             }
 
@@ -495,7 +536,7 @@
                         <tr>
                             <td valign="top" style="width: 130px;"><div class="ng" style="text-align: center;">Oddziały</div></td>
                             <td valign="top">
-                                <table border="0" cellpadding="4" cellspacing="0" class="tabela" style="width: 100%; table-layout: fixed;">
+                                <table border="0" cellpadding="2" cellspacing="0" class="tabela" style="width: 100%; table-layout: fixed;">
                                     ${oddzialyHTML}
                                 </table>
                             </td>
@@ -503,7 +544,7 @@
                         <tr>
                             <td valign="top"><div class="ng" style="text-align: center;">Nauczyciele</div></td>
                             <td valign="top">
-                                <table border="0" cellpadding="4" cellspacing="0" class="tabela" style="width: 100%; table-layout: fixed;">
+                                <table border="0" cellpadding="2" cellspacing="0" class="tabela" style="width: 100%; table-layout: fixed;">
                                     ${nauczycieleHTML}
                                 </table>
                             </td>
@@ -511,7 +552,7 @@
                         <tr>
                             <td valign="top"><div class="ng" style="text-align: center;">Sale</div></td>
                             <td valign="top">
-                                <table border="0" cellpadding="4" cellspacing="0" class="tabela" style="width: 100%; table-layout: fixed;">
+                                <table border="0" cellpadding="2" cellspacing="0" class="tabela" style="width: 100%; table-layout: fixed;">
                                     ${saleHTML}
                                 </table>
                             </td>
@@ -798,10 +839,10 @@
         document.getElementById('app').innerHTML = `
             <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
                 <div class="box-center">
-                    <table class="tabela" border="0" cellpadding="4" cellspacing="0">
-                        <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Logowanie Administratora</th></tr>
-                        <tr><td width="30%"><strong>Login:</strong></td><td><input type="text" id="login-input"></td></tr>
-                        <tr><td><strong>Hasło:</strong></td><td><input type="password" id="pass-input"></td></tr>
+                    <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="margin: 0 auto; width: 100%;">
+                        <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px; text-align:center;">Logowanie Administratora</th></tr>
+                        <tr><td width="30%" style="text-align:right;"><strong>Login:</strong></td><td style="text-align:left;"><input type="text" id="login-input"></td></tr>
+                        <tr><td style="text-align:right;"><strong>Hasło:</strong></td><td style="text-align:left;"><input type="password" id="pass-input"></td></tr>
                         <tr>
                             <td colspan="2" style="text-align:center;">
                                 <button id="zaloguj-btn" style="width:100%; margin-bottom:5px;">Zaloguj się</button>
@@ -845,10 +886,10 @@
         document.getElementById('app').innerHTML = `
             <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
                 <div class="box-center">
-                    <table class="tabela" border="0" cellpadding="4" cellspacing="0">
-                        <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Rejestracja Administratora</th></tr>
-                        <tr><td width="30%"><strong>Nowy Login:</strong></td><td><input type="text" id="reg-login"></td></tr>
-                        <tr><td><strong>Nowe Hasło:</strong></td><td><input type="password" id="reg-pass"></td></tr>
+                    <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="margin: 0 auto; width: 100%;">
+                        <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px; text-align:center;">Rejestracja Administratora</th></tr>
+                        <tr><td width="30%" style="text-align:right;"><strong>Nowy Login:</strong></td><td style="text-align:left;"><input type="text" id="reg-login"></td></tr>
+                        <tr><td style="text-align:right;"><strong>Nowe Hasło:</strong></td><td style="text-align:left;"><input type="password" id="reg-pass"></td></tr>
                         <tr>
                             <td colspan="2" style="text-align:center;">
                                 <button id="zarejestruj-btn" style="width:100%; margin-bottom:5px;">Utwórz konto</button>
@@ -996,6 +1037,293 @@
         };
     };
 
+    window.otworzModalGeneratoraPlanu = async function() {
+        const oddzialy = await pobierzKolekcje("oddzialy");
+        const przedmioty = await pobierzKolekcje("przedmioty");
+        const nauczyciele = await pobierzKolekcje("nauczyciele");
+        const sale = await pobierzKolekcje("sale");
+
+        const existing = document.getElementById('dynamic-modal');
+        if (existing) existing.remove();
+
+        const currentHeaderBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-header').trim() || '#80c2ab';
+
+        let oddzialyOpts = oddzialy.map(o => `<option value="${o.id}">${o.nazwa}</option>`).join('');
+        let saleOpts = '<option value="">-- losowa sala --</option>' + sale.map(s => `<option value="${s.nazwa}">${s.nazwa}</option>`).join('');
+        
+        let przedmiotyRows = przedmioty.map(p => `
+            <tr>
+                <td>${p.nazwa}</td>
+                <td><input type="number" min="0" max="10" value="0" data-przedmiot="${p.nazwa}" style="width: 60px;"></td>
+                <td><select data-przedmiot-sala="${p.nazwa}" style="width: 130px;">${saleOpts}</select></td>
+            </tr>
+        `).join('');
+
+        const modalOverlay = document.createElement('div');
+        modalOverlay.id = 'dynamic-modal';
+        modalOverlay.className = 'modal-overlay';
+        modalOverlay.innerHTML = `
+            <div class="modal-box" style="width: 500px;">
+                <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%;">
+                    <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Generator Planu Lekcji (Automatyczny)</th></tr>
+                    <tr>
+                        <td><strong>Oddział (Klasa):</strong></td>
+                        <td><select id="gen-oddzial-id">${oddzialyOpts}</select></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <strong>Przedmioty, liczba godzin i wybór sali:</strong>
+                            <div style="max-height: 200px; overflow-y: auto; margin-top: 5px;">
+                                <table border="1" cellpadding="2" cellspacing="0" style="width: 100%; border-collapse: collapse; background:#fff;">
+                                    <tr><th>Przedmiot</th><th>Godziny / tydzień</th><th>Sala</th></tr>
+                                    ${przedmiotyRows || '<tr><td colspan="3">Brak przedmiotów w bazie</td></tr>'}
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:center; padding-top:10px;">
+                            <button id="modal-generuj-btn" style="margin-right:5px;">Generuj i Zapisz Plan</button>
+                            <button onclick="document.getElementById('dynamic-modal').remove()">Anuluj</button>
+                            <div id="gen-komunikat" style="margin-top:5px;"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        `;
+        document.body.appendChild(modalOverlay);
+
+        document.getElementById('modal-generuj-btn').onclick = async function() {
+            const btn = this;
+            const oddzialId = document.getElementById('gen-oddzial-id').value;
+            const komunikat = document.getElementById('gen-komunikat');
+
+            if (!oddzialId) {
+                komunikat.className = "error";
+                komunikat.innerText = "Wybierz oddział!";
+                return;
+            }
+
+            let zapotrzebowanie = {};
+            let preferowaneSale = {};
+            const inputs = modalOverlay.querySelectorAll('input[type="number"]');
+            let sumaGodzin = 0;
+            inputs.forEach(inp => {
+                const prj = inp.getAttribute('data-przedmiot');
+                const godz = parseInt(inp.value) || 0;
+                if (godz > 0) {
+                    zapotrzebowanie[prj] = godz;
+                    sumaGodzin += godz;
+                    const salaVal = modalOverlay.querySelector(`select[data-przedmiot-sala="${prj}"]`).value;
+                    if (salaVal) preferowaneSale[prj] = salaVal;
+                }
+            });
+
+            if (sumaGodzin === 0) {
+                komunikat.className = "error";
+                komunikat.innerText = "Wprowadź przynajmniej jedną godzinę przedmiotu!";
+                return;
+            }
+
+            btn.disabled = true;
+            komunikat.className = "";
+            komunikat.innerText = "Generowanie planu...";
+
+            const planyWszystkie = await pobierzKolekcje("plany_lekcji");
+            let zajeciNauczyciele = {};
+            let zajeteSale = {};
+
+            planyWszystkie.forEach(p => {
+                if (p.oddzialId === oddzialId) return;
+                if (p.siatka) {
+                    Object.keys(p.siatka).forEach(dzien => {
+                        if (!zajeciNauczyciele[dzien]) zajeciNauczyciele[dzien] = {};
+                        if (!zajeteSale[dzien]) zajeteSale[dzien] = {};
+                        Object.keys(p.siatka[dzien]).forEach(nr => {
+                            if (!zajeciNauczyciele[dzien][nr]) zajeciNauczyciele[dzien][nr] = new Set();
+                            if (!zajeteSale[dzien][nr]) zajeteSale[dzien][nr] = new Set();
+
+                            const lekcje = Array.isArray(p.siatka[dzien][nr]) ? p.siatka[dzien][nr] : [p.siatka[dzien][nr]];
+                            lekcje.forEach(l => {
+                                if (l.nauczyciel) zajeciNauczyciele[dzien][nr].add(l.nauczyciel);
+                                if (l.sala) zajeteSale[dzien][nr].add(l.sala);
+                            });
+                        });
+                    });
+                }
+            });
+
+            const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
+            const godziny = await pobierzDzwonki();
+            const numeryGodzin = Object.keys(godziny).sort((a,b) => Number(a)-Number(b));
+
+            let siatka = {};
+            dni.forEach(d => siatka[d] = {});
+
+            let zadaniaLekcji = [];
+            Object.keys(zapotrzebowanie).forEach(przedmiot => {
+                const ile = zapotrzebowanie[przedmiot];
+                for (let i = 0; i < ile; i++) {
+                    zadaniaLekcji.push({ przedmiot });
+                }
+            });
+
+            zadaniaLekcji.sort(() => Math.random() - 0.5);
+
+            let sukces = true;
+            let nieprzydzielone = [];
+
+            for (let zadanie of zadaniaLekcji) {
+                const przedmiot = zadanie.przedmiot;
+                const pasujacyNauczyciele = nauczyciele.filter(n => n.przedmioty && n.przedmioty.includes(przedmiot));
+                
+                let przydzielono = false;
+                let shuffledDni = [...dni].sort(() => Math.random() - 0.5);
+                let shuffledGodziny = [...numeryGodzin].sort(() => Math.random() - 0.5);
+
+                slotLoop:
+                for (let dzien of shuffledDni) {
+                    for (let nr of shuffledGodziny) {
+                        if (siatka[dzien][nr] && siatka[dzien][nr].length > 0) continue;
+
+                        let tList = [...pasujacyNauczyciele].sort(() => Math.random() - 0.5);
+                        let sList = [];
+                        const prefSala = preferowaneSale[przedmiot];
+                        if (prefSala) {
+                            const foundSala = sale.find(s => s.nazwa === prefSala);
+                            if (foundSala) sList.push(foundSala);
+                        }
+                        sale.forEach(s => {
+                            if (!sList.includes(s)) sList.push(s);
+                        });
+
+                        for (let t of tList) {
+                            const nName = t.nazwa;
+                            if (zajeciNauczyciele[dzien]?.[nr]?.has(nName)) continue;
+
+                            for (let s of sList) {
+                                const sName = s.nazwa;
+                                if (zajeteSale[dzien]?.[nr]?.has(sName)) continue;
+
+                                if (!siatka[dzien][nr]) siatka[dzien][nr] = [];
+                                siatka[dzien][nr].push({
+                                    grupa: "",
+                                    przedmiot: przedmiot,
+                                    nauczyciel: nName,
+                                    sala: sName
+                                });
+
+                                if (!zajeciNauczyciele[dzien]) zajeciNauczyciele[dzien] = {};
+                                if (!zajeciNauczyciele[dzien][nr]) zajeciNauczyciele[dzien][nr] = new Set();
+                                zajeciNauczyciele[dzien][nr].add(nName);
+
+                                if (!zajeteSale[dzien]) zajeteSale[dzien] = {};
+                                if (!zajeteSale[dzien][nr]) zajeteSale[dzien][nr] = new Set();
+                                zajeteSale[dzien][nr].add(sName);
+
+                                przydzielono = true;
+                                break slotLoop;
+                            }
+                        }
+                    }
+                }
+
+                if (!przydzielono) {
+                    sukces = false;
+                    nieprzydzielone.push(przedmiot);
+                }
+            }
+
+            try {
+                const q = query(collection(db, "plany_lekcji"), where("oddzialId", "==", oddzialId));
+                const querySnapshot = await getDocs(q);
+                
+                if (!querySnapshot.empty) {
+                    const existingDocId = querySnapshot.docs[0].id;
+                    await updateDoc(doc(db, "plany_lekcji", existingDocId), { oddzialId, godziny, siatka });
+                } else {
+                    await addDoc(collection(db, "plany_lekcji"), { oddzialId, godziny, siatka });
+                }
+
+                if (sukces) {
+                    komunikat.className = "success";
+                    komunikat.innerText = "Plan wygenerowany i zapisany pomyślnie!";
+                } else {
+                    komunikat.className = "error";
+                    komunikat.innerText = `Plan zapisany z brakami. Nie udało się zmieścić przedmiotów: ${nieprzydzielone.join(', ')} (brak wolnych slotów lub konflikt nauczycieli/sal z innymi oddziałami).`;
+                }
+                setTimeout(() => {
+                    document.getElementById('dynamic-modal').remove();
+                    renderAdminPanel();
+                }, 2500);
+            } catch (error) {
+                komunikat.className = "error";
+                komunikat.innerText = "Błąd zapisu: " + error.message;
+                btn.disabled = false;
+            }
+        };
+    };
+
+    window.edytujDzwonekPrompt = async function(nr, staryOd, staryDo) {
+        const nowyOd = prompt("Podaj nową godzinę OD (np. 8:00):", staryOd);
+        if (nowyOd === null) return;
+        const nowyDo = prompt("Podaj nową godzinę DO (np. 8:45):", staryDo);
+        if (nowyDo === null) return;
+
+        let dzwonki = await pobierzDzwonki();
+        dzwonki[nr] = { od: nowyOd.trim(), do: nowyDo.trim() };
+        try {
+            await setDoc(doc(db, "ustawienia", "dzwonki"), { godziny: dzwonki }, { merge: true });
+            renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+        } catch(e) {
+            alert("Błąd zapisu dzwonka: " + e.message);
+        }
+    };
+
+    window.dodajLubAktualizujDzwonek = async function() {
+        const nr = document.getElementById('dzwonek-new-nr').value.trim();
+        const od = document.getElementById('dzwonek-new-od').value.trim();
+        const doH = document.getElementById('dzwonek-new-do').value.trim();
+        if (!nr || !od || !doH) {
+            alert("Wypełnij wszystkie pola dzwonka!");
+            return;
+        }
+        let dzwonki = await pobierzDzwonki();
+        dzwonki[nr] = { od, do: doH };
+        try {
+            await setDoc(doc(db, "ustawienia", "dzwonki"), { godziny: dzwonki }, { merge: true });
+            renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+        } catch(e) {
+            alert("Błąd zapisu dzwonka: " + e.message);
+        }
+    };
+
+    window.usunDzwonek = async function(nr) {
+        if (!confirm(`Usunąć godzinę lekcyjną nr ${nr}?`)) return;
+        let dzwonki = await pobierzDzwonki();
+        delete dzwonki[nr];
+        try {
+            await setDoc(doc(db, "ustawienia", "dzwonki"), { godziny: dzwonki }, { merge: true });
+            renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+        } catch(e) {
+            alert("Błąd usuwania dzwonka: " + e.message);
+        }
+    };
+
+    window.edytujGodzineWiersza = function(btnElem, nr) {
+        const tr = btnElem.closest('tr');
+        const staryOd = tr.getAttribute('data-od');
+        const staryDo = tr.getAttribute('data-do');
+        const nowyOd = prompt("Podaj nową godzinę OD:", staryOd);
+        if (nowyOd === null) return;
+        const nowyDo = prompt("Podaj nową godzinę DO:", staryDo);
+        if (nowyDo === null) return;
+
+        tr.setAttribute('data-od', nowyOd.trim());
+        tr.setAttribute('data-do', nowyDo.trim());
+        tr.querySelector('.g').innerHTML = `${nowyOd.trim()} - ${nowyDo.trim()} <button onclick="edytujGodzineWiersza(this, '${nr}')" style="font-size:9px; padding:1px 3px; margin-left:5px;">Edytuj</button>`;
+    };
+
     window.renderAdminPanel = async function(planEdycja = null) {
         const config = await pobierzKonfiguracje();
         await zastosujKonfiguracje();
@@ -1004,6 +1332,7 @@
         const sale = await pobierzKolekcje("sale");
         const przedmioty = await pobierzKolekcje("przedmioty");
         const plany = await pobierzKolekcje("plany_lekcji");
+        const dzwonkiAktualne = await pobierzDzwonki();
 
         edytowanyPlanId = planEdycja ? planEdycja.id : null;
 
@@ -1016,6 +1345,18 @@
 
         let saleList = sale.map(s => `<li>${s.nazwa} <button onclick="edytujZasob('sale', '${s.id}', '${s.nazwa}')" style="padding:1px 3px; font-size:9px;">Edytuj</button> <button onclick="usunZasob('sale', '${s.id}')" style="color:red; padding:1px 3px; font-size:9px;">Usuń</button></li>`).join('');
         let przedmiotyList = przedmioty.map(p => `<li>${p.nazwa} <button onclick="edytujZasob('przedmioty', '${p.id}', '${p.nazwa}')" style="padding:1px 3px; font-size:9px;">Edytuj</button> <button onclick="usunZasob('przedmioty', '${p.id}')" style="color:red; padding:1px 3px; font-size:9px;">Usuń</button></li>`).join('');
+
+        let dzwonkiRows = Object.keys(dzwonkiAktualne).sort((a,b)=>Number(a)-Number(b)).map(nr => {
+            const h = dzwonkiAktualne[nr];
+            return `<tr>
+                <td style="text-align:center;"><strong>${nr}</strong></td>
+                <td style="text-align:center;">${h.od} - ${h.do}</td>
+                <td style="text-align:center;">
+                    <button onclick="edytujDzwonekPrompt('${nr}', '${h.od}', '${h.do}')" style="padding:2px 5px; font-size:10px;">Edytuj</button>
+                    <button onclick="usunDzwonek('${nr}')" style="color:red; padding:2px 5px; font-size:10px;">Usuń</button>
+                </td>
+            </tr>`;
+        }).join('');
 
         let planyZarzadzanie = plany.map(p => {
             const o = oddzialy.find(x => x.id === p.oddzialId);
@@ -1048,14 +1389,44 @@
             { id: "mietowy", nazwa: "Miętowy Pastelowy" },
             { id: "kawowy", nazwa: "Kawowy / Brązowy" },
             { id: "malinowy", nazwa: "Malinowy" },
-            { id: "zloty", nazwa: "Złoty / Piaskowy" }
+            { id: "zloty", nazwa: "Złoty / Piaskowy" },
+            { id: "szafirowy", nazwa: "Szafirowy Elegancki" },
+            { id: "bordo_luksus", nazwa: "Bordowy Luksusowy" },
+            { id: "szmaragdowy", nazwa: "Szmaragdowy Głęboki" },
+            { id: "antracyt", nazwa: "Antracyt Nowoczesny" },
+            { id: "kremowy_elegancki", nazwa: "Kremowo-Kawowy" },
+            { id: "lawendowy", nazwa: "Lawendowy Królewski" }
         ].map(m => `<option value="${m.id}" ${config.theme === m.id ? 'selected' : ''}>${m.nazwa}</option>`).join('');
 
         document.getElementById('app').innerHTML = `
             <div style="margin: 15px 20px;">
-                <div style="display: flex; justify-content: flex-end; margin-bottom:10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:10px;">
+                    <div>
+                        <button onclick="otworzModalGeneratoraPlanu()" style="background-color: #2b5876; color: #fff;">⚡ Generator Planu w Okienku</button>
+                    </div>
                     <button onclick="wyloguj()">Wyloguj</button>
                 </div>
+
+                <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%; margin-bottom:15px;">
+                    <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Konfiguracja dzwonków (Rozkład godzin lekcyjnych)</th></tr>
+                    <tr>
+                        <td colspan="2" style="background:var(--bg-table); padding:6px;">
+                            Dodaj / Zmień godzinę dzwonków: 
+                            Nr: <input type="text" id="dzwonek-new-nr" placeholder="1" style="width:40px; display:inline-block;"> 
+                            Od: <input type="text" id="dzwonek-new-od" placeholder="8:00" style="width:70px; display:inline-block;"> 
+                            Do: <input type="text" id="dzwonek-new-do" placeholder="8:45" style="width:70px; display:inline-block;">
+                            <button onclick="dodajLubAktualizujDzwonek()" style="margin-left:5px;">Zapisz dzwonek</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding:0;">
+                            <table border="1" cellpadding="4" cellspacing="0" style="width:100%; border-collapse:collapse; background:#fff;">
+                                <tr><th>Nr godziny</th><th>Godziny trwania</th><th>Akcja</th></tr>
+                                ${dzwonkiRows || '<tr><td colspan="3" style="text-align:center;">Brak dzwonków</td></tr>'}
+                            </table>
+                        </td>
+                    </tr>
+                </table>
 
                 <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%; margin-bottom:15px;">
                     <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">Ustawienia wyglądu i konfiguracji</th></tr>
@@ -1086,9 +1457,9 @@
                         <td><strong>Format nauczycieli na planie:</strong></td>
                         <td>
                             <select id="admin-format-nauczyciela" style="width: 250px; display:inline-block; margin-right: 10px;">
-                                <option value="pelny" ${config.formatNauczyciela === 'pelny' ? 'selected' : ''}>Pełne imię i nazwisko (np. Jan Kowalski)</option>
-                                <option value="inicjal" ${config.formatNauczyciela === 'inicjal' ? 'selected' : ''}>Inicjał i nazwisko (np. J. Kowalski)</option>
-                                <option value="nazwisko" ${config.formatNauczyciela === 'nazwisko' ? 'selected' : ''}>Tylko nazwisko (np. Kowalski)</option>
+                                <option value="pelny" ${config.formatNauczyciela === 'pelny' ? 'selected' : ''}>Pełne imię i nazwisko</option>
+                                <option value="inicjal" ${config.formatNauczyciela === 'inicjal' ? 'selected' : ''}>Inicjał i nazwisko</option>
+                                <option value="nazwisko" ${config.formatNauczyciela === 'nazwisko' ? 'selected' : ''}>Tylko nazwisko</option>
                             </select>
                             <button onclick="zapiszOpcjeWyswietlania()">Zapisz format</button>
                         </td>
@@ -1097,8 +1468,8 @@
                         <td><strong>Format sal na planie:</strong></td>
                         <td>
                             <select id="admin-format-sali" style="width: 250px; display:inline-block; margin-right: 10px;">
-                                <option value="pelny" ${config.formatSali === 'pelny' ? 'selected' : ''}>Pełna nazwa (np. Sala 120)</option>
-                                <option value="skrot" ${config.formatSali === 'skrot' ? 'selected' : ''}>Bez słowa "Sala" (np. 120)</option>
+                                <option value="pelny" ${config.formatSali === 'pelny' ? 'selected' : ''}>Pełna nazwa</option>
+                                <option value="skrot" ${config.formatSali === 'skrot' ? 'selected' : ''}>Bez słowa "Sala"</option>
                             </select>
                             <button onclick="zapiszOpcjeWyswietlania()">Zapisz format</button>
                         </td>
@@ -1132,14 +1503,14 @@
                 </table>
 
                 <table class="tabela" border="0" cellpadding="4" cellspacing="0" style="width:100%; margin-bottom:15px;">
-                    <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">${edytowanyPlanId ? 'Edycja Planu Lekcji' : 'Tworzenie Nowego Planu Lekcji'}</th></tr>
+                    <tr><th colspan="2" style="background:${currentHeaderBg}; color:#fff; padding:6px;">${edytowanyPlanId ? 'Edycja Planu Lekcji (Manualna)' : 'Tworzenie Nowego Planu Lekcji (Manualne)'}</th></tr>
                     <tr>
                         <td width="20%"><strong>Wybierz Oddział:</strong></td>
                         <td><select id="admin-oddzial-id" style="width:300px;">${oddzialyOptions}</select></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="background:var(--bg-table); padding:6px;">
-                            <strong>Godziny lekcyjne:</strong> 
+                            <strong>Dodatkowa godzina lekcyjna:</strong> 
                             Nr: <input type="text" id="input-new-nr" placeholder="1" style="width:40px; display:inline-block;"> 
                             Od: <input type="text" id="input-new-od" placeholder="8:00" style="width:70px; display:inline-block;"> 
                             Do: <input type="text" id="input-new-do" placeholder="8:45" style="width:70px; display:inline-block;">
@@ -1161,7 +1532,7 @@
                             <button id="zapisz-plan-btn" style="width:250px;">${edytowanyPlanId ? 'Zapisz zmiany w planie' : 'Utwórz nowy plan'}</button>
                             ${edytowanyPlanId ? '<button onclick="anulujEdycje()" style="margin-left:10px;">Anuluj edycję</button>' : ''}
                             <div id="admin-komunikat"></div>
-                            <div id="konflikty-komunikat" style="color: #b00000; font-weight: bold; margin-top: 5px;"></div>
+                            <div id="konflikty-komunikat" style="color: #b00000; font-weight: bold; margin-top: 5px; background: #ffe6e6; padding: 5px; border: 1px solid #ff9999;"></div>
                         </td>
                     </tr>
                 </table>
@@ -1173,6 +1544,19 @@
             </div>
         `;
 
+        function znajdzWolnySlot(nVal, sVal, dniList, numeryGodzinList, szczegolyNauczyciele, szczegolySale) {
+            for (let dAlt of dniList) {
+                for (let nrAlt of numeryGodzinList) {
+                    const nZaj = szczegolyNauczyciele?.[dAlt]?.[nrAlt]?.[nVal];
+                    const sZaj = sVal ? szczegolySale?.[dAlt]?.[nrAlt]?.[sVal] : false;
+                    if (!nZaj && !sZaj) {
+                        return { dzien: dAlt, godzina: nrAlt };
+                    }
+                }
+            }
+            return null;
+        }
+
         async function sprawdzKolizjeRęczne() {
             const warningBox = document.getElementById('konflikty-komunikat');
             if (!warningBox) return;
@@ -1180,25 +1564,39 @@
             const aktualnyOddzialId = document.getElementById('admin-oddzial-id').value;
             const planyWszystkie = await pobierzKolekcje("plany_lekcji");
 
-            let zajeciNauczyciele = {};
-            let zajeteSale = {};
+            let szczegolyNauczyciele = {};
+            let szczegolySale = {};
 
             planyWszystkie.forEach(p => {
                 if (edytowanyPlanId && p.id === edytowanyPlanId) return;
                 if (!edytowanyPlanId && p.oddzialId === aktualnyOddzialId) return;
+                const oddz = oddzialy.find(x => x.id === p.oddzialId);
+                const oddzialNazwa = oddz ? oddz.nazwa : "Inny oddział";
 
                 if (p.siatka) {
                     Object.keys(p.siatka).forEach(dzien => {
-                        if (!zajeciNauczyciele[dzien]) zajeciNauczyciele[dzien] = {};
-                        if (!zajeteSale[dzien]) zajeteSale[dzien] = {};
+                        if (!szczegolyNauczyciele[dzien]) szczegolyNauczyciele[dzien] = {};
+                        if (!szczegolySale[dzien]) szczegolySale[dzien] = {};
                         Object.keys(p.siatka[dzien]).forEach(nr => {
-                            if (!zajeciNauczyciele[dzien][nr]) zajeciNauczyciele[dzien][nr] = new Set();
-                            if (!zajeteSale[dzien][nr]) zajeteSale[dzien][nr] = new Set();
+                            if (!szczegolyNauczyciele[dzien][nr]) szczegolyNauczyciele[dzien][nr] = {};
+                            if (!szczegolySale[dzien][nr]) szczegolySale[dzien][nr] = {};
 
                             const lekcje = Array.isArray(p.siatka[dzien][nr]) ? p.siatka[dzien][nr] : [p.siatka[dzien][nr]];
                             lekcje.forEach(l => {
-                                if (l.nauczyciel) zajeciNauczyciele[dzien][nr].add(l.nauczyciel);
-                                if (l.sala) zajeteSale[dzien][nr].add(l.sala);
+                                if (l.nauczyciel) {
+                                    szczegolyNauczyciele[dzien][nr][l.nauczyciel] = {
+                                        oddzialNazwa,
+                                        sala: l.sala || 'brak',
+                                        przedmiot: l.przedmiot || 'brak'
+                                    };
+                                }
+                                if (l.sala) {
+                                    szczegolySale[dzien][nr][l.sala] = {
+                                        oddzialNazwa,
+                                        nauczyciel: l.nauczyciel || 'brak',
+                                        przedmiot: l.przedmiot || 'brak'
+                                    };
+                                }
                             });
                         });
                     });
@@ -1206,6 +1604,10 @@
             });
 
             let kolizjeWykryte = [];
+            let lokalniNauczyciele = {};
+            let lokalneSale = {};
+            const numeryGodzinList = Array.from(document.querySelectorAll('#edytor-tbody tr')).map(tr => tr.getAttribute('data-nr'));
+
             const wiersze = document.querySelectorAll('#edytor-tbody tr');
 
             wiersze.forEach(tr => {
@@ -1219,18 +1621,44 @@
                         const nVal = item.querySelector('select[data-pole="nauczyciel"]').value;
                         const sVal = item.querySelector('select[data-pole="sala"]').value;
 
-                        if (nVal && zajeciNauczyciele[dzien]?.[nr]?.has(nVal)) {
-                            kolizjeWykryte.push(`Nauczyciel <b>${nVal}</b> jest już zajęty w ${dzien} na ${nr} godzinie!`);
+                        if (nVal && szczegolyNauczyciele[dzien]?.[nr]?.[nVal]) {
+                            const zaj = szczegolyNauczyciele[dzien][nr][nVal];
+                            const wolnySlot = znajdzWolnySlot(nVal, sVal, dni, numeryGodzinList, szczegolyNauczyciele, szczegolySale);
+                            let prop = wolnySlot ? `Sugerowany wolny termin: <b>${wolnySlot.dzien}, godz. ${wolnySlot.godzina}</b>.` : `Brak wolnych slotów w harmonogramie.`;
+                            kolizjeWykryte.push(`Komórka zajęta (${dzien}, godz. ${nr}) – Nauczyciel <b>${nVal}</b> uczy w tym czasie oddziału <b>${zaj.oddzialNazwa}</b> (sala: ${zaj.sala}, przedmiot: ${zaj.przedmiot}). ${prop}`);
                         }
-                        if (sVal && zajeteSale[dzien]?.[nr]?.has(sVal)) {
-                            kolizjeWykryte.push(`Sala <b>${sVal}</b> jest już zajęta w ${dzien} na ${nr} godzinie!`);
+                        if (sVal && szczegolySale[dzien]?.[nr]?.[sVal]) {
+                            const zaj = szczegolySale[dzien][nr][sVal];
+                            const wolnySlot = znajdzWolnySlot(nVal, sVal, dni, numeryGodzinList, szczegolyNauczyciele, szczegolySale);
+                            let prop = wolnySlot ? `Sugerowany wolny termin: <b>${wolnySlot.dzien}, godz. ${wolnySlot.godzina}</b>.` : `Brak wolnych slotów w harmonogramie.`;
+                            kolizjeWykryte.push(`Komórka zajęta (${dzien}, godz. ${nr}) – Sala <b>${sVal}</b> jest zajęta przez oddział <b>${zaj.oddzialNazwa}</b> (nauczyciel: ${zaj.nauczyciel}, przedmiot: ${zaj.przedmiot}). ${prop}`);
+                        }
+
+                        if (!lokalniNauczyciele[dzien]) lokalniNauczyciele[dzien] = {};
+                        if (!lokalniNauczyciele[dzien][nr]) lokalniNauczyciele[dzien][nr] = new Set();
+                        if (nVal) {
+                            if (lokalniNauczyciele[dzien][nr].has(nVal)) {
+                                kolizjeWykryte.push(`Nauczyciel <b>${nVal}</b> jest przypisany dwukrotnie w tym samym czasie (${dzien}, godz. ${nr}) w tej klasie!`);
+                            } else {
+                                lokalniNauczyciele[dzien][nr].add(nVal);
+                            }
+                        }
+
+                        if (!lokalneSale[dzien]) lokalneSale[dzien] = {};
+                        if (!lokalneSale[dzien][nr]) lokalneSale[dzien][nr] = new Set();
+                        if (sVal) {
+                            if (lokalneSale[dzien][nr].has(sVal)) {
+                                kolizjeWykryte.push(`Sala <b>${sVal}</b> jest przypisana dwukrotnie w tym samym czasie (${dzien}, godz. ${nr}) w tej klasie!`);
+                            } else {
+                                lokalneSale[dzien][nr].add(sVal);
+                            }
                         }
                     });
                 });
             });
 
             if (kolizjeWykryte.length > 0) {
-                warningBox.innerHTML = "⚠️ Ostrzeżenie o kolizjach:<br>" + [...new Set(kolizjeWykryte)].join("<br>");
+                warningBox.innerHTML = "⚠️ Wykryto kolizje i zajęte zasoby:<br>" + [...new Set(kolizjeWykryte)].join("<br><br>");
             } else {
                 warningBox.innerHTML = "";
             }
@@ -1372,7 +1800,7 @@
 
             let tdHtml = `
                 <td class="nr">${nr}</td>
-                <td class="g">${od} - ${doH}</td>
+                <td class="g">${od} - ${doH} <button onclick="edytujGodzineWiersza(this, '${nr}')" style="font-size:9px; padding:1px 3px; margin-left:5px;">Edytuj</button></td>
             `;
 
             dni.forEach(dzien => {
@@ -1416,6 +1844,12 @@
                     }
                 });
                 window.dodajWierszGodziny(nr, h.od, h.do, dniMap);
+            });
+        } else {
+            const numery = Object.keys(dzwonkiAktualne).sort((a,b) => Number(a)-Number(b));
+            numery.forEach(nr => {
+                const h = dzwonkiAktualne[nr];
+                window.dodajWierszGodziny(nr, h.od, h.do, {});
             });
         }
 
