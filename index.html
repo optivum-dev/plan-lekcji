@@ -318,13 +318,23 @@
         kawowy: { header: "#5c4033", border: "#8b5a2b", table: "#f5deb3", hover: "#3e2723", text: "#000", link: "#000080", visited: "#8b4513", linkHover: "#d2691e", cell: "#ffffff" },
         malinowy: { header: "#d81b60", border: "#f48fb1", table: "#fce4ec", hover: "#ad1457", text: "#000", link: "#000080", visited: "#6a1b9a", linkHover: "#880e4f", cell: "#ffffff" },
         zloty: { header: "#b8860b", border: "#f0e68c", table: "#fff8dc", hover: "#daa520", text: "#000", link: "#000080", visited: "#8b4513", linkHover: "#d2691e", cell: "#ffffff" },
-        // Nowe eleganckie motywy
         szafirowy: { header: "#1a237e", border: "#7986cb", table: "#e8eaf6", hover: "#0d47a1", text: "#000", link: "#000080", visited: "#3f51b5", linkHover: "#1a237e", cell: "#ffffff" },
         bordo_luksus: { header: "#4a1525", border: "#d7b4bc", table: "#f9f2f4", hover: "#2d0c15", text: "#000", link: "#000080", visited: "#6b2737", linkHover: "#4a1525", cell: "#ffffff" },
         szmaragdowy: { header: "#004d40", border: "#80cbc4", table: "#e0f2f1", hover: "#00332c", text: "#000", link: "#000080", visited: "#00796b", linkHover: "#004d40", cell: "#ffffff" },
         antracyt: { header: "#263238", border: "#90a4ae", table: "#eceff1", hover: "#102027", text: "#fff", link: "#80cbc4", visited: "#b0bec5", linkHover: "#ffffff", cell: "#37474f" },
         kremowy_elegancki: { header: "#6d4c41", border: "#d7ccc8", table: "#efebe9", hover: "#4e342e", text: "#000", link: "#000080", visited: "#8d6e63", linkHover: "#6d4c41", cell: "#ffffff" },
-        lawendowy: { header: "#512da8", border: "#b39ddb", table: "#ede7f6", hover: "#311b92", text: "#000", link: "#000080", visited: "#673ab7", linkHover: "#512da8", cell: "#ffffff" }
+        lawendowy: { header: "#512da8", border: "#b39ddb", table: "#ede7f6", hover: "#311b92", text: "#000", link: "#000080", visited: "#673ab7", linkHover: "#512da8", cell: "#ffffff" },
+        // Nowo dodane motywy (więcej kolorów)
+        neon_cyber: { header: "#ff007f", border: "#7928ca", table: "#1a1a2e", hover: "#d9006c", text: "#fff", link: "#00ffff", visited: "#ff00ff", linkHover: "#fff", cell: "#16213e" },
+        pastelowy_blekit: { header: "#74b9ff", border: "#81ecec", table: "#dfe6e9", hover: "#0984e3", text: "#2d3436", link: "#0984e3", visited: "#6c5ce7", linkHover: "#2d3436", cell: "#ffffff" },
+        lesna_mgla: { header: "#2d3436", border: "#636e72", table: "#b2bec3", hover: "#1e272c", text: "#fff", link: "#55efc4", visited: "#81ecec", linkHover: "#fff", cell: "#2f3640" },
+        wrzosowy: { header: "#a29bfe", border: "#6c5ce7", table: "#dfe6e9", hover: "#6c5ce7", text: "#2d3436", link: "#6c5ce7", visited: "#a29bfe", linkHover: "#2d3436", cell: "#ffffff" },
+        koralkowy: { header: "#ff7675", border: "#fab1a0", table: "#ffeaa7", hover: "#d63031", text: "#2d3436", link: "#d63031", visited: "#e17055", linkHover: "#2d3436", cell: "#ffffff" },
+        miedziany: { header: "#d35400", border: "#e67e22", table: "#f5b041", hover: "#ba4a00", text: "#fff", link: "#f9e79f", visited: "#f39c12", linkHover: "#fff", cell: "#6e2c00" },
+        oliwkowy: { header: "#556b2f", border: "#6b8e23", table: "#f4f6f0", hover: "#3f4c1f", text: "#000", link: "#000080", visited: "#556b2f", linkHover: "#000", cell: "#ffffff" },
+        rubinowy: { header: "#900C3F", border: "#C70039", table: "#FADBD8", hover: "#581845", text: "#000", link: "#000080", visited: "#900C3F", linkHover: "#581845", cell: "#ffffff" },
+        morski_gleboki: { header: "#004080", border: "#3399ff", table: "#cce6ff", hover: "#00264d", text: "#000", link: "#000080", visited: "#004080", linkHover: "#00264d", cell: "#ffffff" },
+        liliowy: { header: "#c39bd3", border: "#d7bde2", table: "#f4ecf7", hover: "#a569bd", text: "#000", link: "#000080", visited: "#884ea0", linkHover: "#a569bd", cell: "#ffffff" }
     };
 
     async function pobierzKonfiguracje() {
@@ -1175,6 +1185,7 @@
 
             for (let zadanie of zadaniaLekcji) {
                 const przedmiot = zadanie.przedmiot;
+                // Wybieramy wszystkich nauczycieli przypisanych do tego przedmiotu
                 const pasujacyNauczyciele = nauczyciele.filter(n => n.przedmioty && n.przedmioty.includes(przedmiot));
                 
                 let przydzielono = false;
@@ -1186,6 +1197,7 @@
                     for (let nr of shuffledGodziny) {
                         if (siatka[dzien][nr] && siatka[dzien][nr].length > 0) continue;
 
+                        // Losowe przemieszanie pasujących nauczycieli (losowanie jednego z wielu przypisanych)
                         let tList = [...pasujacyNauczyciele].sort(() => Math.random() - 0.5);
                         let sList = [];
                         const prefSala = preferowaneSale[przedmiot];
@@ -1395,7 +1407,17 @@
             { id: "szmaragdowy", nazwa: "Szmaragdowy Głęboki" },
             { id: "antracyt", nazwa: "Antracyt Nowoczesny" },
             { id: "kremowy_elegancki", nazwa: "Kremowo-Kawowy" },
-            { id: "lawendowy", nazwa: "Lawendowy Królewski" }
+            { id: "lawendowy", nazwa: "Lawendowy Królewski" },
+            { id: "neon_cyber", nazwa: "Neon Cyberpunk" },
+            { id: "pastelowy_blekit", nazwa: "Pastelowy Błękit" },
+            { id: "lesna_mgla", nazwa: "Leśna Mgła" },
+            { id: "wrzosowy", nazwa: "Wrzosowy" },
+            { id: "koralkowy", nazwa: "Koralkowy" },
+            { id: "miedziany", nazwa: "Miedziany" },
+            { id: "oliwkowy", nazwa: "Oliwkowy" },
+            { id: "rubinowy", nazwa: "Rubinowy" },
+            { id: "morski_gleboki", nazwa: "Morski Głęboki" },
+            { id: "liliowy", nazwa: "Liliowy" }
         ].map(m => `<option value="${m.id}" ${config.theme === m.id ? 'selected' : ''}>${m.nazwa}</option>`).join('');
 
         document.getElementById('app').innerHTML = `
