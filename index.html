@@ -691,6 +691,9 @@
             wiersze = `<tr><td colspan="7" class="l">Brak zdefiniowanych godzin lub planu dla tego oddziału</td></tr>`;
         }
 
+        const dataObowiazywaniaTxt = plan && plan.dataObowiazywania ? plan.dataObowiazywania : '10.09.2026r.';
+        const dataWygenerowaniaTxt = plan && plan.dataWygenerowania ? plan.dataWygenerowania : '10.09.2026';
+
         document.getElementById('app').innerHTML = `
             <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tabtytul-szczegoly">
                 <tr>
@@ -701,7 +704,7 @@
                 </tr>
             </table>
             <div align="center" style="margin-top: 15px;">
-                <table border="0" cellpadding="10" cellspacing="0">
+                <table border="0" cellpadding="10" cellspacing="0" style="width: auto;">
                     <tr><td>
                         <table border="1" cellspacing="0" cellpadding="4" class="tabela-szczegoly">
                             <tr>
@@ -710,6 +713,25 @@
                                 ${dni.map(d => `<th>${d}</th>`).join('')}
                             </tr>
                             ${wiersze}
+                            <tr>
+                                <td colspan="7" style="padding: 10px 4px; border: none; background: transparent;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td style="text-align: left; vertical-align: top; border: none; background: transparent; font-weight: bold;">
+                                                Obowiązuje od: ${dataObowiazywaniaTxt}
+                                            </td>
+                                            <td style="text-align: right; vertical-align: middle; border: none; background: transparent; white-space: normal; word-break: break-word;">
+                                                <div style="display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px;">
+                                                    <span style="white-space: normal; text-align: right; max-width: 350px;">
+                                                        wygenerowano ${dataWygenerowaniaTxt} za pomocą programu Plan lekcji Optivum firmy VULCAN
+                                                    </span>
+                                                    <img src="plan_logo_4.gif" alt="VULCAN Logo" style="height: 35px; width: auto; vertical-align: middle;">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
                         </table>
                     </td></tr>
                     <tr>
@@ -791,6 +813,9 @@
             wiersze = `<tr><td colspan="7" class="l">Brak wpisów dla nauczyciela</td></tr>`;
         }
 
+        const now = new Date();
+        const dataWygenerowaniaAktualna = `${now.getDate()}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+
         document.getElementById('app').innerHTML = `
             <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tabtytul-szczegoly">
                 <tr>
@@ -810,6 +835,25 @@
                                 ${dni.map(d => `<th>${d}</th>`).join('')}
                             </tr>
                             ${wiersze}
+                            <tr>
+                                <td colspan="7" style="padding: 10px 4px; border: none; background: transparent;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td style="text-align: left; vertical-align: top; border: none; background: transparent; font-weight: bold;">
+                                                Obowiązuje od: 10.09.2026r.
+                                            </td>
+                                            <td style="text-align: right; vertical-align: middle; border: none; background: transparent; white-space: normal; word-break: break-word;">
+                                                <div style="display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px;">
+                                                    <span style="white-space: normal; text-align: right; max-width: 350px;">
+                                                        wygenerowano ${dataWygenerowaniaAktualna} za pomocą programu Plan lekcji Optivum firmy VULCAN
+                                                    </span>
+                                                    <img src="plan_logo_4.gif" alt="VULCAN Logo" style="height: 35px; width: auto; vertical-align: middle;">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
                         </table>
                     </td></tr>
                     <tr>
@@ -891,6 +935,9 @@
             wiersze = `<tr><td colspan="7" class="l">Brak wpisów dla sali</td></tr>`;
         }
 
+        const now = new Date();
+        const dataWygenerowaniaAktualna = `${now.getDate()}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+
         document.getElementById('app').innerHTML = `
             <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tabtytul-szczegoly">
                 <tr>
@@ -910,6 +957,25 @@
                                 ${dni.map(d => `<th>${d}</th>`).join('')}
                             </tr>
                             ${wiersze}
+                            <tr>
+                                <td colspan="7" style="padding: 10px 4px; border: none; background: transparent;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td style="text-align: left; vertical-align: top; border: none; background: transparent; font-weight: bold;">
+                                                Obowiązuje od: 10.09.2026r.
+                                            </td>
+                                            <td style="text-align: right; vertical-align: middle; border: none; background: transparent; white-space: normal; word-break: break-word;">
+                                                <div style="display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px;">
+                                                    <span style="white-space: normal; text-align: right; max-width: 350px;">
+                                                        wygenerowano ${dataWygenerowaniaAktualna} za pomocą programu Plan lekcji Optivum firmy VULCAN
+                                                    </span>
+                                                    <img src="plan_logo.gif" alt="VULCAN Logo" style="height: 35px; width: auto; vertical-align: middle;">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
                         </table>
                     </td></tr>
                     <tr>
@@ -1334,6 +1400,10 @@
                         <td><select id="gen-oddzial-id">${oddzialyOpts}</select></td>
                     </tr>
                     <tr>
+                        <td><strong>Data obowiązywania od:</strong></td>
+                        <td><input type="text" id="gen-data-obowiazywania" value="10.09.2026r." style="width: 200px;"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2">
                             <strong>Przedmioty, godziny, sala i preferowana pozycja:</strong>
                             <div style="max-height: 200px; overflow-y: auto; margin-top: 5px;">
@@ -1359,6 +1429,9 @@
         document.getElementById('modal-generuj-btn').onclick = async function() {
             const btn = this;
             const oddzialId = document.getElementById('gen-oddzial-id').value;
+            const dataObowiazywania = document.getElementById('gen-data-obowiazywania').value.trim() || '10.09.2026r.';
+            const now = new Date();
+            const dataWygenerowania = `${now.getDate()}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
             const komunikat = document.getElementById('gen-komunikat');
 
             if (!oddzialId) {
@@ -1526,9 +1599,9 @@
                 
                 if (!querySnapshot.empty) {
                     const existingDocId = querySnapshot.docs[0].id;
-                    await updateDoc(doc(db, "plany_lekcji", existingDocId), { oddzialId, godziny, siatka });
+                    await updateDoc(doc(db, "plany_lekcji", existingDocId), { oddzialId, godziny, siatka, dataObowiazywania, dataWygenerowania });
                 } else {
-                    await addDoc(collection(db, "plany_lekcji"), { oddzialId, godziny, siatka });
+                    await addDoc(collection(db, "plany_lekcji"), { oddzialId, godziny, siatka, dataObowiazywania, dataWygenerowania });
                 }
 
                 if (sukces) {
@@ -1610,6 +1683,156 @@
         tr.querySelector('.g').innerHTML = `${nowyOd.trim()} - ${nowyDo.trim()} <button onclick="edytujGodzineWiersza(this, '${nr}')" style="font-size:9px; padding:1px 3px; margin-left:5px;">Edytuj</button>`;
     };
 
+    window.dodajWierszGodziny = function() {
+        const nr = document.getElementById('input-new-nr').value.trim();
+        const od = document.getElementById('input-new-od').value.trim();
+        const doH = document.getElementById('input-new-do').value.trim();
+        if (!nr || !od || !doH) {
+            alert("Wypełnij wszystkie pola nowej godziny!");
+            return;
+        }
+        const tbody = document.getElementById('edytor-tbody');
+        const tr = document.createElement('tr');
+        tr.setAttribute('data-nr', nr);
+        tr.setAttribute('data-od', od);
+        tr.setAttribute('data-do', doH);
+
+        const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
+        let rowHTML = `
+            <td class="nr" style="text-align:center;">${nr}</td>
+            <td class="g" style="text-align:center; white-space:nowrap;">${od} - ${doH} <button onclick="edytujGodzineWiersza(this, '${nr}')" style="font-size:9px; padding:1px 3px; margin-left:5px;">Edytuj</button></td>
+        `;
+
+        dni.forEach(() => {
+            rowHTML += `<td class="l" style="vertical-align:top;">
+                <div class="grupy-kontener">
+                    <div class="grupa-item" style="margin-bottom:4px;">
+                        Gr: <input type="text" data-pole="grupa" value="" style="width:35px; display:inline-block;" placeholder="np. 1"><br>
+                        Przedmiot: <select data-pole="przedmiot" style="width:110px; display:inline-block;">
+                            <option value="">-- wybierz --</option>
+                        </select><br>
+                        Nauczyciel: <select data-pole="nauczyciel" style="width:110px; display:inline-block;">
+                            <option value="">-- wybierz --</option>
+                        </select><br>
+                        Sala: <select data-pole="sala" style="width:110px; display:inline-block;">
+                            <option value="">-- wybierz --</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="dodajGrupeDoKomorki(this)" style="font-size:9px; padding:2px 4px; margin-top:4px;">+ Grupa</button>
+            </td>`;
+        });
+        rowHTML += `<td style="text-align:center;"><button onclick="usunWierszGodziny(this)" style="color:red; padding:2px 5px;">Usuń</button></td>`;
+        tr.innerHTML = rowHTML;
+        tbody.appendChild(tr);
+    };
+
+    window.usunWierszGodziny = function(btn) {
+        btn.closest('tr').remove();
+    };
+
+    window.dodajGrupeDoKomorki = function(btn) {
+        const td = btn.closest('td');
+        const kontener = td.querySelector('.grupy-kontener');
+        const div = document.createElement('div');
+        div.className = 'grupa-item';
+        div.style.cssText = "margin-bottom:4px; border-top:1px solid #ccc; padding-top:4px;";
+        div.innerHTML = `
+            Gr: <input type="text" data-pole="grupa" value="" style="width:35px; display:inline-block;" placeholder="np. 1"><br>
+            Przedmiot: <select data-pole="przedmiot" style="width:110px; display:inline-block;">
+                <option value="">-- wybierz --</option>
+            </select><br>
+            Nauczyciel: <select data-pole="nauczyciel" style="width:110px; display:inline-block;">
+                <option value="">-- wybierz --</option>
+            </select><br>
+            Sala: <select data-pole="sala" style="width:110px; display:inline-block;">
+                <option value="">-- wybierz --</option>
+            </select>
+            <button onclick="this.closest('.grupa-item').remove()" style="color:red; font-size:9px; padding:1px 3px; margin-top:2px;">Usuń grupę</button>
+        `;
+        kontener.appendChild(div);
+    };
+
+    window.edytujPlan = function(planId) {
+        const plany = pobierzKolekcje("plany_lekcji").then(planyList => {
+            const p = planyList.find(x => x.id === planId);
+            if (p) {
+                renderAdminPanel(p);
+            }
+        });
+    };
+
+    window.anulujEdycje = function() {
+        renderAdminPanel();
+    };
+
+    window.usunPlan = async function(planId) {
+        if (!confirm("Czy na pewno chcesz usunąć ten plan?")) return;
+        try {
+            await deleteDoc(doc(db, "plany_lekcji", planId));
+            renderAdminPanel();
+        } catch(e) {
+            alert("Błąd usuwania planu: " + e.message);
+        }
+    };
+
+    window.usunZasob = async function(kolekcja, id) {
+        if (!confirm("Czy na pewno chcesz usunąć ten zasób?")) return;
+        try {
+            await deleteDoc(doc(db, kolekcja, id));
+            renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
+        } catch(e) {
+            alert("Błąd usuwania zasobu: " + e.message);
+        }
+    };
+
+    window.zapiszMotywAdmin = async function() {
+        const motyw = document.getElementById('admin-theme-select').value;
+        await zmienMotyw(motyw);
+        alert("Motyw zmieniony pomyślnie!");
+    };
+
+    window.zapiszNaglowekAdmin = async function() {
+        const naglowek = document.getElementById('admin-naglowek-input').value.trim();
+        try {
+            await setDoc(doc(db, "ustawienia", "konfiguracja"), { naglowek }, { merge: true });
+            await zastosujKonfiguracje();
+            alert("Nagłówek zapisany!");
+        } catch(e) {
+            alert("Błąd: " + e.message);
+        }
+    };
+
+    window.zapiszOpcjeWyswietlania = async function() {
+        const trybSpisu = document.getElementById('admin-tryb-spisu-select').value;
+        const formatNauczycielaSpis = document.getElementById('admin-format-nauczyciela-spis').value;
+        const formatNauczyciela = document.getElementById('admin-format-nauczyciela').value;
+        const formatSali = document.getElementById('admin-format-sali').value;
+        try {
+            await setDoc(doc(db, "ustawienia", "konfiguracja"), { 
+                trybWyswietlaniaSpisu, 
+                formatNauczycielaSpis,
+                formatNauczyciela, 
+                formatSali 
+            }, { merge: true });
+            await zastosujKonfiguracje();
+            alert("Ustawienia wyświetlania zapisane!");
+        } catch(e) {
+            alert("Błąd: " + e.message);
+        }
+    };
+
+    window.zapiszWidocznoscPrzyciskuAdmina = async function() {
+        const pokazPrzyciskAdmina = document.getElementById('admin-btn-visibility-toggle').checked;
+        try {
+            await setDoc(doc(db, "ustawienia", "konfiguracja"), { pokazPrzyciskAdmina }, { merge: true });
+            await zastosujKonfiguracje();
+            alert("Ustawienie widoczności zapisane!");
+        } catch(e) {
+            alert("Błąd: " + e.message);
+        }
+    };
+
     window.renderAdminPanel = async function(planEdycja = null) {
         const config = await pobierzKonfiguracje();
         await zastosujKonfiguracje();
@@ -1662,6 +1885,8 @@
         const currentHeaderBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-header').trim() || '#80c2ab';
 
         const motywyOpcje = Object.keys(motywy).map(mKey => `<option value="${mKey}" ${config.theme === mKey ? 'selected' : ''}>${mKey.toUpperCase()}</option>`).join('');
+
+        const domyslnaDataObowiazywania = planEdycja && planEdycja.dataObowiazywania ? planEdycja.dataObowiazywania : '10.09.2026r.';
 
         document.getElementById('app').innerHTML = `
             <div style="margin: 15px 20px;">
@@ -1801,6 +2026,10 @@
                         <td><select id="admin-oddzial-id" style="width:300px;">${oddzialyOptions}</select></td>
                     </tr>
                     <tr>
+                        <td><strong>Data obowiązywania od:</strong></td>
+                        <td><input type="text" id="admin-data-obowiazywania" value="${domyslnaDataObowiazywania}" style="width: 300px;"></td>
+                    </tr>
+                    <tr>
                         <td colspan="2" style="background:var(--bg-table); padding:6px;">
                             <strong>Dodatkowa godzina lekcyjna:</strong> 
                             Nr: <input type="text" id="input-new-nr" placeholder="1" style="width:40px; display:inline-block;"> 
@@ -1897,62 +2126,16 @@
             tbody.appendChild(tr);
         });
 
-        // Obsługa automatycznego pobierania nauczyciela przypisanego do przedmiotu (lub wyboru z listy, jeśli jest ich wielu)
-        tbody.addEventListener('change', async function(e) {
-            if (e.target && e.target.getAttribute('data-pole') === 'przedmiot') {
-                const wybranyPrzedmiot = e.target.value;
-                const grupaItem = e.target.closest('.grupa-item');
-                if (!grupaItem) return;
-                const nauczycielSelect = grupaItem.querySelector('select[data-pole="nauczyciel"]');
-                if (!nauczycielSelect) return;
-
-                if (!wybranyPrzedmiot) {
-                    nauczycielSelect.value = "";
-                    return;
-                }
-
-                const przypisaniNauczyciele = nauczyciele.filter(n => n.przedmioty && n.przedmioty.includes(wybranyPrzedmiot));
-
-                if (przypisaniNauczyciele.length === 1) {
-                    nauczycielSelect.value = przypisaniNauczyciele[0].nazwa;
-                } else if (przypisaniNauczyciele.length > 1) {
-                    const promptTekst = `Do przedmiotu "${wybranyPrzedmiot}" przypisanych jest wielu nauczycieli:\n` + 
-                        przypisaniNauczyciele.map((n, idx) => `${idx + 1}. ${formatNauczyciel(n.nazwa, 'pelny')}`).join('\n') + 
-                        `\n\nWpisz imię i nazwisko (lub numer 1-${przypisaniNauczyciele.length}) wybranego nauczyciela:`;
-                    
-                    const wybor = prompt(promptTekst);
-                    if (wybor) {
-                        const trimmed = wybor.trim();
-                        const numer = parseInt(trimmed);
-                        let wybranoNauczyciela = null;
-                        if (!isNaN(numer) && numer >= 1 && numer <= przypisaniNauczyciele.length) {
-                            wybranoNauczyciela = przypisaniNauczyciele[numer - 1].nazwa;
-                        } else {
-                            const znaleziony = przypisaniNauczyciele.find(n => 
-                                n.nazwa.toLowerCase().includes(trimmed.toLowerCase()) || 
-                                formatNauczyciel(n.nazwa, 'pelny').toLowerCase().includes(trimmed.toLowerCase())
-                            );
-                            if (znaleziony) {
-                                wybranoNauczyciela = znaleziony.nazwa;
-                            }
-                        }
-                        if (wybranoNauczyciela) {
-                            nauczycielSelect.value = wybranoNauczyciela;
-                        }
-                    }
-                }
-            }
-        });
-
-        // Event listener do sprawdzania kolizji w czasie rzeczywistym
-        tbody.addEventListener('change', sprawdzKolizjeRęczne);
-        document.getElementById('admin-oddzial-id').addEventListener('change', sprawdzKolizjeRęczne);
-        sprawdzKolizjeRęczne();
-
+        // Obsługa zapisu planu manualnego
         document.getElementById('zapisz-plan-btn').onclick = async function() {
             const btn = this;
             const oddzialId = document.getElementById('admin-oddzial-id').value;
+            const dataObowiazywania = document.getElementById('admin-data-obowiazywania').value.trim() || '10.09.2026r.';
+            const now = new Date();
+            const dataWygenerowania = `${now.getDate()}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
             const komunikat = document.getElementById('admin-komunikat');
+            const konfliktyEl = document.getElementById('konflikty-komunikat');
+            konfliktyEl.innerText = "";
 
             if (!oddzialId) {
                 komunikat.className = "error";
@@ -1964,50 +2147,89 @@
             let siatka = {};
             dni.forEach(d => siatka[d] = {});
 
-            const wiersze = tbody.querySelectorAll('tr');
-            wiersze.forEach(tr => {
+            const wierszeTabeli = tbody.querySelectorAll('tr');
+            wierszeTabeli.forEach(tr => {
                 const nr = tr.getAttribute('data-nr');
                 const od = tr.getAttribute('data-od');
                 const doH = tr.getAttribute('data-do');
                 godziny[nr] = { od, do: doH };
 
-                dni.forEach(dzien => {
-                    const komorkaDnia = tr.querySelector(`button[onclick*="${dzien}" ]`)?.previousElementSibling || tr.querySelectorAll('td.l')[dni.indexOf(dzien)];
-                    if (!komorkaDnia) return;
+                dni.forEach((dzien, dIdx) => {
+                    const td = tr.querySelectorAll('td.l')[dIdx];
+                    if (!td) return;
+                    const grupaItems = td.querySelectorAll('.grupa-item');
+                    let lekcjeWKomorce = [];
 
-                    const grupyItems = komorkaDnia.querySelectorAll('.grupa-item');
-                    let lekcjeW_slotu = [];
-
-                    grupyItems.forEach(item => {
-                        const grupa = item.querySelector('input[data-pole="grupa"]').value.trim();
-                        const przedmiot = item.querySelector('select[data-pole="przedmiot"]').value;
-                        const nauczyciel = item.querySelector('select[data-pole="nauczyciel"]').value;
-                        const sala = item.querySelector('select[data-pole="sala"]').value;
+                    grupaItems.forEach(gItem => {
+                        const grupa = gItem.querySelector('input[data-pole="grupa"]').value.trim();
+                        const przedmiot = gItem.querySelector('select[data-pole="przedmiot"]').value;
+                        const nauczyciel = gItem.querySelector('select[data-pole="nauczyciel"]').value;
+                        const sala = gItem.querySelector('select[data-pole="sala"]').value;
 
                         if (przedmiot || nauczyciel || sala) {
-                            lekcjeW_slotu.push({ grupa, przedmiot, nauczyciel, sala });
+                            lekcjeWKomorce.push({ grupa, przedmiot, nauczyciel, sala });
                         }
                     });
 
-                    if (lekcjeW_slotu.length > 0) {
-                        siatka[dzien][nr] = lekcjeW_slotu.length === 1 ? lekcjeW_slotu[0] : lekcjeW_slotu;
+                    if (lekcjeWKomorce.length > 0) {
+                        if (!siatka[dzien]) siatka[dzien] = {};
+                        siatka[dzien][nr] = lekcjeWKomorce.length === 1 ? lekcjeWKomorce[0] : lekcjeWKomorce;
                     }
                 });
             });
 
+            btn.disabled = true;
+            komunikat.className = "";
+            komunikat.innerText = "Zapisywanie planu...";
+
             try {
-                btn.disabled = true;
-                komunikat.className = "";
-                komunikat.innerText = "Zapisywanie planu...";
+                const planyWszystkie = await pobierzKolekcje("plany_lekcji");
+                let konflikty = [];
 
-                const q = query(collection(db, "plany_lekcji"), where("oddzialId", "==", oddzialId));
-                const querySnapshot = await getDocs(q);
+                planyWszystkie.forEach(p => {
+                    if (edytowanyPlanId && p.id === edytowanyPlanId) return;
+                    if (p.oddzialId === oddzialId) return;
+                    const inneOddz = oddzialy.find(o => o.id === p.oddzialId);
+                    const nazwaInnejKlasy = inneOddz ? inneOddz.nazwa : "Inna klasa";
 
-                if (!querySnapshot.empty) {
-                    const existingDocId = querySnapshot.docs[0].id;
-                    await updateDoc(doc(db, "plany_lekcji", existingDocId), { oddzialId, godziny, siatka });
+                    dni.forEach(dzien => {
+                        if (p.siatka && p.siatka[dzien] && siatka[dzien]) {
+                            Object.keys(siatka[dzien]).forEach(nr => {
+                                if (p.siatka[dzien][nr]) {
+                                    const mojeLekcje = Array.isArray(siatka[dzien][nr]) ? siatka[dzien][nr] : [siatka[dzien][nr]];
+                                    const inneLekcje = Array.isArray(p.siatka[dzien][nr]) ? p.siatka[dzien][nr] : [p.siatka[dzien][nr]];
+
+                                    mojeLekcje.forEach(ml => {
+                                        inneLekcje.forEach(il => {
+                                            if (ml.nauczyciel && ml.nauczyciel === il.nauczyciel) {
+                                                konflikty.push(`Nauczyciel ${ml.nauczyciel} jest już zajęty w ${dzien} na godzinie ${nr} (${nazwaInnejKlasy}).`);
+                                            }
+                                            if (ml.sala && ml.sala === il.sala) {
+                                                konflikty.push(`Sala ${ml.sala} jest już zajęta w ${dzien} na godzinie ${nr} (${nazwaInnejKlasy}).`);
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+
+                if (konflikty.length > 0) {
+                    konfliktyEl.innerHTML = "Wykryto konflikty w planie:<br>" + konflikty.join("<br>");
+                }
+
+                if (edytowanyPlanId) {
+                    await updateDoc(doc(db, "plany_lekcji", edytowanyPlanId), { oddzialId, godziny, siatka, dataObowiazywania, dataWygenerowania });
                 } else {
-                    await addDoc(collection(db, "plany_lekcji"), { oddzialId, godziny, siatka });
+                    const q = query(collection(db, "plany_lekcji"), where("oddzialId", "==", oddzialId));
+                    const querySnapshot = await getDocs(q);
+                    if (!querySnapshot.empty) {
+                        const existingDocId = querySnapshot.docs[0].id;
+                        await updateDoc(doc(db, "plany_lekcji", existingDocId), { oddzialId, godziny, siatka, dataObowiazywania, dataWygenerowania });
+                    } else {
+                        await addDoc(collection(db, "plany_lekcji"), { oddzialId, godziny, siatka, dataObowiazywania, dataWygenerowania });
+                    }
                 }
 
                 komunikat.className = "success";
@@ -2017,324 +2239,29 @@
                 }, 1500);
             } catch(e) {
                 komunikat.className = "error";
-                komunikat.innerText = "Błąd zapisu planu: " + e.message;
+                komunikat.innerText = "Błąd zapisu: " + e.message;
                 btn.disabled = false;
             }
         };
-    };
 
-    window.dodajWierszGodziny = function() {
-        const nr = document.getElementById('input-new-nr').value.trim();
-        const od = document.getElementById('input-new-od').value.trim();
-        const doH = document.getElementById('input-new-do').value.trim();
-        if (!nr || !od || !doH) {
-            alert("Wypełnij wszystkie pola nowej godziny lekcyjnej!");
-            return;
-        }
+        tbody.addEventListener('change', async function(e) {
+            if (e.target && e.target.getAttribute('data-pole') === 'przedmiot') {
+                const wybranyPrzedmiot = e.target.value;
+                const grupaItem = e.target.closest('.grupa-item');
+                if (!grupaItem) return;
+                const nauczycielSelect = grupaItem.querySelector('select[data-pole="nauczyciel"]');
+                if (!nauczycielSelect) return;
 
-        const tbody = document.getElementById('edytor-tbody');
-        if (!tbody) return;
-
-        // Sprawdź czy taki numer już istnieje
-        const istniejące = tbody.querySelectorAll('tr');
-        for (let tr of istniejące) {
-            if (tr.getAttribute('data-nr') === nr) {
-                alert(`Godzina o numerze ${nr} już istnieje w edytorze!`);
-                return;
-            }
-        }
-
-        const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
-        const tr = document.createElement('tr');
-        tr.setAttribute('data-nr', nr);
-        tr.setAttribute('data-od', od);
-        tr.setAttribute('data-do', doH);
-
-        let rowHTML = `
-            <td class="nr" style="text-align:center;">${nr}</td>
-            <td class="g" style="text-align:center; white-space:nowrap;">${od} - ${doH} <button onclick="edytujGodzineWiersza(this, '${nr}')" style="font-size:9px; padding:1px 3px; margin-left:5px;">Edytuj</button></td>
-        `;
-
-        dni.forEach(() => {
-            rowHTML += `<td class="l" style="vertical-align:top;">
-                <div class="grupy-kontener">
-                    <div class="grupa-item" style="margin-bottom:4px;">
-                        Gr: <input type="text" data-pole="grupa" value="" style="width:35px; display:inline-block;" placeholder="np. 1"><br>
-                        Przedmiot: <select data-pole="przedmiot" style="width:110px; display:inline-block;">
-                            <option value="">-- wybierz --</option>
-                        </select><br>
-                        Nauczyciel: <select data-pole="nauczyciel" style="width:110px; display:inline-block;">
-                            <option value="">-- wybierz --</option>
-                        </select><br>
-                        Sala: <select data-pole="sala" style="width:110px; display:inline-block;">
-                            <option value="">-- wybierz --</option>
-                        </select>
-                    </div>
-                </div>
-                <button onclick="dodajGrupeDoKomorki(this)" style="font-size:9px; padding:2px 4px; margin-top:4px;">+ Grupa</button>
-            </td>`;
-        });
-
-        rowHTML += `<td style="text-align:center;"><button onclick="usunWierszGodziny(this)" style="color:red; padding:2px 5px;">Usuń</button></td>`;
-        tr.innerHTML = rowHTML;
-        tbody.appendChild(tr);
-
-        // Uzupełnienie selectów nowo dodanego wiersza danymi z cache / bazy
-        pobierzKolekcje("przedmioty").then(przedmioty => {
-            pobierzKolekcje("nauczyciele").then(nauczyciele => {
-                pobierzKolekcje("sale").then(sale => {
-                    const selectsPrzedmiot = tr.querySelectorAll('select[data-pole="przedmiot"]');
-                    const selectsNauczyciel = tr.querySelectorAll('select[data-pole="nauczyciel"]');
-                    const selectsSala = tr.querySelectorAll('select[data-pole="sala"]');
-
-                    selectsPrzedmiot.forEach(sel => {
-                        przedmioty.forEach(pr => {
-                            sel.innerHTML += `<option value="${pr.nazwa}">${pr.nazwa}</option>`;
-                        });
-                    });
-                    selectsNauczyciel.forEach(sel => {
-                        nauczyciele.forEach(n => {
-                            sel.innerHTML += `<option value="${n.nazwa}">${formatNauczyciel(n.nazwa, 'pelny')}</option>`;
-                        });
-                    });
-                    selectsSala.forEach(sel => {
-                        sale.forEach(s => {
-                            sel.innerHTML += `<option value="${s.nazwa}">${formatSala(s.nazwa)}</option>`;
-                        });
-                    });
-                });
-            });
-        });
-
-        document.getElementById('input-new-nr').value = '';
-        document.getElementById('input-new-od').value = '';
-        document.getElementById('input-new-do').value = '';
-    };
-
-    window.usunWierszGodziny = function(btn) {
-        const tr = btn.closest('tr');
-        if (tr) tr.remove();
-        sprawdzKolizjeRęczne();
-    };
-
-    window.dodajGrupeDoKomorki = function(btn) {
-        const td = btn.closest('td');
-        const kontener = td.querySelector('.grupy-kontener');
-        if (!kontener) return;
-
-        // Pobierz opcje z pierwszego selecta w komórce, jeśli istnieją, lub zbuduj na nowo
-        const pierwszyPrzedmiotSelect = kontener.querySelector('select[data-pole="przedmiot"]');
-        let przedmiotyHtml = '<option value="">-- wybierz --</option>';
-        let nauczycieleHtml = '<option value="">-- wybierz --</option>';
-        let saleHtml = '<option value="">-- wybierz --</option>';
-
-        if (pierwszyPrzedmiotSelect) {
-            przedmiotyHtml = pierwszyPrzedmiotSelect.innerHTML;
-            const pierwszyNauczycielSelect = kontener.querySelector('select[data-pole="nauczyciel"]');
-            if (pierwszyNauczycielSelect) nauczycieleHtml = pierwszyNauczycielSelect.innerHTML;
-            const pierwszySalaSelect = kontener.querySelector('select[data-pole="sala"]');
-            if (pierwszySalaSelect) saleHtml = pierwszySalaSelect.innerHTML;
-        }
-
-        const div = document.createElement('div');
-        div.className = 'grupa-item';
-        div.style.cssText = 'margin-bottom:4px; border-top:1px solid #ccc; padding-top:4px;';
-        div.innerHTML = `
-            Gr: <input type="text" data-pole="grupa" value="" style="width:35px; display:inline-block;" placeholder="np. 2"><br>
-            Przedmiot: <select data-pole="przedmiot" style="width:110px; display:inline-block;">${przedmiotyHtml}</select><br>
-            Nauczyciel: <select data-pole="nauczyciel" style="width:110px; display:inline-block;">${nauczycieleHtml}</select><br>
-            Sala: <select data-pole="sala" style="width:110px; display:inline-block;">${saleHtml}</select>
-            <button onclick="this.closest('.grupa-item').remove(); sprawdzKolizjeRęczne();" style="color:red; font-size:9px; padding:1px 3px; margin-top:2px;">Usuń grupę</button>
-        `;
-        kontener.appendChild(div);
-    };
-
-    window.edytujPlan = async function(planId) {
-        const plany = await pobierzKolekcje("plany_lekcji");
-        const plan = plany.find(p => p.id === planId);
-        if (plan) {
-            renderAdminPanel({ id: plan.id, oddzialId: plan.oddzialId });
-        }
-    };
-
-    window.anulujEdycje = function() {
-        renderAdminPanel();
-    };
-
-    window.usunPlan = async function(planId) {
-        if (!confirm("Czy na pewno chcesz usunąć ten plan lekcji?")) return;
-        try {
-            await deleteDoc(doc(db, "plany_lekcji", planId));
-            renderAdminPanel();
-        } catch(e) {
-            alert("Błąd usuwania planu: " + e.message);
-        }
-    };
-
-    window.usunZasob = async function(kolekcja, id) {
-        if (!confirm("Czy na pewno chcesz usunąć ten element?")) return;
-        try {
-            await deleteDoc(doc(db, kolekcja, id));
-            renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
-        } catch(e) {
-            alert("Błąd usuwania zasobu: " + e.message);
-        }
-    };
-
-    window.zapiszMotywAdmin = async function() {
-        const select = document.getElementById('admin-theme-select');
-        if (!select) return;
-        await zmienMotyw(select.value);
-        alert("Motyw zmieniony pomyślnie!");
-    };
-
-    window.zapiszNaglowekAdmin = async function() {
-        const input = document.getElementById('admin-naglowek-input');
-        if (!input) return;
-        const nowyNaglowek = input.value.trim() || "VULCAN OPTIVUM PLAN";
-        try {
-            await setDoc(doc(db, "ustawienia", "konfiguracja"), { naglowek: nowyNaglowek }, { merge: true });
-            globalConfig.naglowek = nowyNaglowek;
-            await zastosujKonfiguracje();
-            alert("Nagłówek zapisany!");
-        } catch(e) {
-            alert("Błąd zapisu nagłówka: " + e.message);
-        }
-    };
-
-    window.zapiszOpcjeWyswietlania = async function() {
-        const trybSpisuSel = document.getElementById('admin-tryb-spisu-select');
-        const formatNauczycielaSpisSel = document.getElementById('admin-format-nauczyciela-spis');
-        const formatNauczycielaSel = document.getElementById('admin-format-nauczyciela');
-        const formatSaliSel = document.getElementById('admin-format-sali');
-
-        let daneDoZapisu = {};
-        if (trybSpisuSel) daneDoZapisu.trybWyswietlaniaSpisu = trybSpisuSel.value;
-        if (formatNauczycielaSpisSel) daneDoZapisu.formatNauczycielaSpis = formatNauczycielaSpisSel.value;
-        if (formatNauczycielaSel) daneDoZapisu.formatNauczyciela = formatNauczycielaSel.value;
-        if (formatSaliSel) daneDoZapisu.formatSali = formatSaliSel.value;
-
-        try {
-            await setDoc(doc(db, "ustawienia", "konfiguracja"), daneDoZapisu, { merge: true });
-            globalConfig = { ...globalConfig, ...daneDoZapisu };
-            await zastosujKonfiguracje();
-            renderAdminPanel(edytowanyPlanId ? { id: edytowanyPlanId, oddzialId: document.getElementById('admin-oddzial-id').value } : null);
-            alert("Ustawienia wyświetlania zostały zapisane!");
-        } catch(e) {
-            alert("Błąd zapisu ustawień: " + e.message);
-        }
-    };
-
-    window.zapiszWidocznoscPrzyciskuAdmina = async function() {
-        const toggle = document.getElementById('admin-btn-visibility-toggle');
-        if (!toggle) return;
-        const pokaz = toggle.checked;
-        try {
-            await setDoc(doc(db, "ustawienia", "konfiguracja"), { pokazPrzyciskAdmina: pokaz }, { merge: true });
-            globalConfig.pokazPrzyciskAdmina = pokaz;
-            await zastosujKonfiguracje();
-            alert("Ustawienie widoczności przycisku zostało zapisane!");
-        } catch(e) {
-            alert("Błąd zapisu: " + e.message);
-        }
-    };
-
-    async function sprawdzKolizjeRęczne() {
-        const konfliktyDiv = document.getElementById('konflikty-komunikat');
-        if (!konfliktyDiv) return;
-
-        const oddzialId = document.getElementById('admin-oddzial-id')?.value;
-        const tbody = document.getElementById('edytor-tbody');
-        if (!tbody) { konfliktyDiv.innerText = ""; return; }
-
-        const planyWszystkie = await pobierzKolekcje("plany_lekcji");
-        
-        let zajeciNauczycieleWInnych = {};
-        let zajeteSaleWInnych = {};
-
-        planyWszystkie.forEach(p => {
-            if (edytowanyPlanId && p.id === edytowanyPlanId) return;
-            if (p.oddzialId === oddzialId) return;
-
-            if (p.siatka) {
-                Object.keys(p.siatka).forEach(dzien => {
-                    if (!zajeciNauczycieleWInnych[dzien]) zajeciNauczycieleWInnych[dzien] = {};
-                    if (!zajeteSaleWInnych[dzien]) zajeteSaleWInnych[dzien] = {};
-
-                    Object.keys(p.siatka[dzien]).forEach(nr => {
-                        if (!zajeciNauczycieleWInnych[dzien][nr]) zajeciNauczycieleWInnych[dzien][nr] = new Set();
-                        if (!zajeteSaleWInnych[dzien][nr]) zajeteSaleWInnych[dzien][nr] = new Set();
-
-                        const lekcje = Array.isArray(p.siatka[dzien][nr]) ? p.siatka[dzien][nr] : [p.siatka[dzien][nr]];
-                        lekcje.forEach(l => {
-                            if (l.nauczyciel) zajeciNauczycieleWInnych[dzien][nr].add(l.nauczyciel);
-                            if (l.sala) zajeteSaleWInnych[dzien][nr].add(l.sala);
-                        });
-                    });
-                });
+                if (!wybranyPrzedmiot) return;
+                const pasujacyNauczyciele = nauczyciele.filter(n => n.przedmioty && n.przedmioty.includes(wybranyPrzedmiot));
+                if (pasujacyNauczyciele.length === 1) {
+                    nauczycielSelect.value = pasujacyNauczyciele[0].nazwa;
+                }
             }
         });
-
-        const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
-        let lokalniNauczyciele = {};
-        let lokalneSale = {};
-        let komunikatyKonfliktow = [];
-
-        const wiersze = tbody.querySelectorAll('tr');
-        wiersze.forEach(tr => {
-            const nr = tr.getAttribute('data-nr');
-            dni.forEach((dzien, dIdx) => {
-                const komorkaDnia = tr.querySelectorAll('td.l')[dIdx];
-                if (!komorkaDnia) return;
-
-                const grupyItems = komorkaDnia.querySelectorAll('.grupa-item');
-                grupyItems.forEach(item => {
-                    const nauczyciel = item.querySelector('select[data-pole="nauczyciel"]')?.value;
-                    const sala = item.querySelector('select[data-pole="sala"]')?.value;
-                    const przedmiot = item.querySelector('select[data-pole="przedmiot"]')?.value;
-
-                    if (nauczyciel) {
-                        if (!lokalniNauczyciele[dzien]) lokalniNauczyciele[dzien] = {};
-                        if (!lokalniNauczyciele[dzien][nr]) lokalniNauczyciele[dzien][nr] = new Set();
-                        if (lokalniNauczyciele[dzien][nr].has(nauczyciel)) {
-                            komunikatyKonfliktow.push(`⚠️ Konflikt w bieżącym planie: Nauczyciel **${formatNauczyciel(nauczyciel, 'pelny')}** jest przypisany do dwóch lekcji w tym samym czasie (${dzien}, godz. ${nr}).`);
-                        }
-                        lokalniNauczyciele[dzien][nr].add(nauczyciel);
-
-                        if (zajeciNauczycieleWInnych[dzien]?.[nr]?.has(nauczyciel)) {
-                            komunikatyKonfliktow.push(`⚠️ Konflikt z innym planem: Nauczyciel **${formatNauczyciel(nauczyciel, 'pelny')}** ma już lekcję w innym oddziale (${dzien}, godz. ${nr}).`);
-                        }
-                    }
-
-                    if (sala) {
-                        if (!lokalneSale[dzien]) lokalneSale[dzien] = {};
-                        if (!lokalneSale[dzien][nr]) lokalneSale[dzien][nr] = new Set();
-                        if (lokalneSale[dzien][nr].has(sala)) {
-                            komunikatyKonfliktow.push(`⚠️ Konflikt w bieżącym planie: Sala **${formatSala(sala)}** jest zajęta przez dwie lekcje jednocześnie (${dzien}, godz. ${nr}).`);
-                        }
-                        lokalneSale[dzien][nr].add(sala);
-
-                        if (zajeteSaleWInnych[dzien]?.[nr]?.has(sala)) {
-                            komunikatyKonfliktow.push(`⚠️ Konflikt z innym planem: Sala **${formatSala(sala)}** jest już zajęta w innym oddziale (${dzien}, godz. ${nr}).`);
-                        }
-                    }
-                });
-            });
-        });
-
-        if (komunikatyKonfliktow.length > 0) {
-            konfliktyDiv.innerHTML = komunikatyKonfliktow.join('<br>');
-            konfliktyDiv.style.display = 'block';
-        } else {
-            konfliktyDiv.innerHTML = "";
-            konfliktyDiv.style.display = 'none';
-        }
-    }
-
-    window.onload = async function() {
-        await zastosujKonfiguracje();
-        renderPublicView();
     };
+
+    window.zmienWidok('public');
 </script>
 
 </body>
