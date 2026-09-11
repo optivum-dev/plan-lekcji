@@ -746,19 +746,21 @@
         await zastosujKonfiguracje();
     }
 
-    window.pokazPlanNauczyciela = async function(nazwaNauczyciela) {
+window.pokazPlanNauczyciela = async function(nazwaNauczyciela) {
         const plany = await pobierzKolekcje("plany_lekcji");
         const oddzialy = await pobierzKolekcje("oddzialy");
         
         const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
         let siatkaNauczyciela = {};
         let godzinyZbiorczo = {};
+        let powiazanePlany = [];
 
         plany.forEach(p => {
             const oddz = oddzialy.find(o => o.id === p.oddzialId);
             const oddzialNazwa = oddz ? oddz.nazwa : "Nieznana klasa";
             const oddzialId = p.oddzialId;
             
+            let zawieraNauczyciela = false;
             if (p.godziny) {
                 Object.keys(p.godziny).forEach(nr => { godzinyZbiorczo[nr] = p.godziny[nr]; });
             }
@@ -770,6 +772,7 @@
                         const arr = Array.isArray(lekcje) ? lekcje : [lekcje];
                         arr.forEach(lekcja => {
                             if (lekcja && lekcja.nauczyciel === nazwaNauczyciela) {
+                                zawieraNauczyciela = true;
                                 if (!siatkaNauczyciela[dzien]) siatkaNauczyciela[dzien] = {};
                                 const klasaLink = `<a class="k" onclick="pokazPlanOddzialu('${oddzialId}')">${oddzialNazwa}</a>`;
                                 if (!siatkaNauczyciela[dzien][i]) siatkaNauczyciela[dzien][i] = [];
@@ -784,6 +787,10 @@
                     });
                 }
             });
+
+            if (zawieraNauczyciela) {
+                powiazanePlany.push(p);
+            }
         });
 
         let wiersze = "";
@@ -813,8 +820,22 @@
             wiersze = `<tr><td colspan="7" class="l">Brak wpisów dla nauczyciela</td></tr>`;
         }
 
-        const now = new Date();
-        const dataWygenerowaniaAktualna = `${now.getDate()}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+        let dataObowiazywaniaTxt = '';
+        let dataWygenerowaniaTxt = '';
+
+        if (powiazanePlany.length > 0) {
+            const obowiazujace = powiazanePlany.map(p => p.dataObowiazywania).filter(Boolean);
+            if (obowiazujace.length > 0) {
+                dataObowiazywaniaTxt = obowiazujace[0];
+            }
+            const wygenerowane = powiazanePlany.map(p => p.dataWygenerowania).filter(Boolean);
+            if (wygenerowane.length > 0) {
+                dataWygenerowaniaTxt = wygenerowane[wygenerowane.length - 1];
+            } else {
+                const now = new Date();
+                dataWygenerowaniaTxt = `${now.getDate()}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+            }
+        }
 
         document.getElementById('app').innerHTML = `
             <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tabtytul-szczegoly">
@@ -840,15 +861,16 @@
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                             <td style="text-align: left; vertical-align: top; border: none; background: transparent; font-weight: bold;">
-                                                Obowiązuje od: 10.09.2026r.
+                                                Obowiązuje od: ${dataObowiazywaniaTxt}
                                             </td>
                                             <td style="text-align: right; vertical-align: middle; border: none; background: transparent; white-space: normal; word-break: break-word;">
+                                                ${dataWygenerowaniaTxt ? `
                                                 <div style="display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px;">
                                                     <span style="white-space: normal; text-align: right; max-width: 350px;">
-                                                        wygenerowano ${dataWygenerowaniaAktualna} za pomocą programu Plan lekcji Optivum firmy VULCAN
+                                                        wygenerowano ${dataWygenerowaniaTxt} za pomocą programu Plan lekcji Optivum firmy VULCAN
                                                     </span>
                                                     <img src="plan_logo.gif" alt="VULCAN Logo" style="height: 35px; width: auto; vertical-align: middle;">
-                                                </div>
+                                                </div>` : ''}
                                             </td>
                                         </tr>
                                     </table>
@@ -868,19 +890,21 @@
         await zastosujKonfiguracje();
     }
 
-    window.pokazPlanSal = async function(nazwaSali) {
+window.pokazPlanSal = async function(nazwaSali) {
         const plany = await pobierzKolekcje("plany_lekcji");
         const oddzialy = await pobierzKolekcje("oddzialy");
         
         const dni = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
         let siatkaSali = {};
         let godzinyZbiorczo = {};
+        let powiazanePlany = [];
 
         plany.forEach(p => {
             const oddz = oddzialy.find(o => o.id === p.oddzialId);
             const oddzialNazwa = oddz ? oddz.nazwa : "Nieznana klasa";
             const oddzialId = p.oddzialId;
             
+            let zawieraSale = false;
             if (p.godziny) {
                 Object.keys(p.godziny).forEach(nr => { godzinyZbiorczo[nr] = p.godziny[nr]; });
             }
@@ -892,6 +916,7 @@
                         const arr = Array.isArray(lekcje) ? lekcje : [lekcje];
                         arr.forEach(lekcja => {
                             if (lekcja && lekcja.sala === nazwaSali) {
+                                zawieraSale = true;
                                 if (!siatkaSali[dzien]) siatkaSali[dzien] = {};
                                 const klasaLink = `<a class="k" onclick="pokazPlanOddzialu('${oddzialId}')">${oddzialNazwa}</a>`;
                                 if (!siatkaSali[dzien][i]) siatkaSali[dzien][i] = [];
@@ -906,6 +931,10 @@
                     });
                 }
             });
+
+            if (zawieraSale) {
+                powiazanePlany.push(p);
+            }
         });
 
         let wiersze = "";
@@ -935,8 +964,22 @@
             wiersze = `<tr><td colspan="7" class="l">Brak wpisów dla sali</td></tr>`;
         }
 
-        const now = new Date();
-        const dataWygenerowaniaAktualna = `${now.getDate()}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+        let dataObowiazywaniaTxt = '';
+        let dataWygenerowaniaTxt = '';
+
+        if (powiazanePlany.length > 0) {
+            const obowiazujace = powiazanePlany.map(p => p.dataObowiazywania).filter(Boolean);
+            if (obowiazujace.length > 0) {
+                dataObowiazywaniaTxt = obowiazujace[0];
+            }
+            const wygenerowane = powiazanePlany.map(p => p.dataWygenerowania).filter(Boolean);
+            if (wygenerowane.length > 0) {
+                dataWygenerowaniaTxt = wygenerowane[wygenerowane.length - 1];
+            } else {
+                const now = new Date();
+                dataWygenerowaniaTxt = `${now.getDate()}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()}`;
+            }
+        }
 
         document.getElementById('app').innerHTML = `
             <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tabtytul-szczegoly">
@@ -962,15 +1005,16 @@
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                             <td style="text-align: left; vertical-align: top; border: none; background: transparent; font-weight: bold;">
-                                                Obowiązuje od: 10.09.2026r.
+                                                Obowiązuje od: ${dataObowiazywaniaTxt}
                                             </td>
                                             <td style="text-align: right; vertical-align: middle; border: none; background: transparent; white-space: normal; word-break: break-word;">
+                                                ${dataWygenerowaniaTxt ? `
                                                 <div style="display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px;">
                                                     <span style="white-space: normal; text-align: right; max-width: 350px;">
-                                                        wygenerowano ${dataWygenerowaniaAktualna} za pomocą programu Plan lekcji Optivum firmy VULCAN
+                                                        wygenerowano ${dataWygenerowaniaTxt} za pomocą programu Plan lekcji Optivum firmy VULCAN
                                                     </span>
                                                     <img src="plan_logo.gif" alt="VULCAN Logo" style="height: 35px; width: auto; vertical-align: middle;">
-                                                </div>
+                                                </div>` : ''}
                                             </td>
                                         </tr>
                                     </table>
